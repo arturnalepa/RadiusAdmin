@@ -10,12 +10,13 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@NamedQuery(name="Radpostauth.findAll", query="SELECT r FROM Radpostauth r")
-public class Radpostauth implements Serializable{
+@NamedQuery(name="Radpostauth_log.findAll", query="SELECT r FROM Radpostauth_log r")
+public class Radpostauth_log implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private int id;
 
 	private Timestamp date;
@@ -26,7 +27,7 @@ public class Radpostauth implements Serializable{
 
 	private String user;
 
-	public Radpostauth() {
+	public Radpostauth_log() {
 	}
 
 	public int getId() {

@@ -10,11 +10,13 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Nas.findAll", query="SELECT n FROM Nas n")
+@Table(name = "nas")
 public class Nas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String community;
@@ -23,7 +25,7 @@ public class Nas implements Serializable {
 
 	private String nasname;
 
-	private int ports;
+	private int ports=1812;
 
 	private String secret;
 
@@ -77,7 +79,7 @@ public class Nas implements Serializable {
 	}
 
 	public int getPorts() {
-		return this.ports;
+			return this.ports;
 	}
 
 	public void setPorts(int ports) {

@@ -5,27 +5,28 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the radreply database table.
+ * The persistent class for the radgroupcheck database table.
  * 
  */
 @Entity
-@NamedQuery(name="Radreply.findAll", query="SELECT r FROM Radreply r")
-public class Radreply implements Serializable {
+@NamedQuery(name="Radgroupcheck_old.findAll", query="SELECT r FROM Radgroupcheck_old r")
+public class Radgroupcheck_old implements Serializable  {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private int id;
 
 	private String attribute;
 
-	private String op;
+	private String groupName;
 
-	private String userName;
+	private String op;
 
 	private String value;
 
-	public Radreply() {
+	public Radgroupcheck_old() {
 	}
 
 	public int getId() {
@@ -44,20 +45,20 @@ public class Radreply implements Serializable {
 		this.attribute = attribute;
 	}
 
+	public String getGroupName() {
+		return this.groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
 	public String getOp() {
 		return this.op;
 	}
 
 	public void setOp(String op) {
 		this.op = op;
-	}
-
-	public String getUserName() {
-		return this.userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getValue() {

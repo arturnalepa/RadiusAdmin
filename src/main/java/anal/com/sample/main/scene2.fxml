@@ -18,6 +18,7 @@
          <children>
             <TableView fx:id="personTable" editable="true" layoutX="7.0" layoutY="133.0" onMouseClicked="#RightContextMenu" prefHeight="296.0" prefWidth="590.0" tableMenuButtonVisible="true">
               <columns>
+                  <TableColumn fx:id="colname" prefWidth="75.0" text="cname" />
                 <TableColumn fx:id="colmacaddress" prefWidth="75.0" text="C1" />
                 <TableColumn fx:id="colmacpassword" prefWidth="75.0" text="C2" />
                  <TableColumn fx:id="colvlan" prefWidth="75.0" text="C2" />
@@ -38,6 +39,8 @@
             <CheckBox fx:id="checkMacPass" layoutX="24.0" layoutY="28.0" mnemonicParsing="false" onAction="#status" text="MacAddress=Password" />
             <Label fx:id="LMaCAddress" layoutX="163.0" layoutY="65.0" text="" />
             <Button fx:id="AddClient" layoutX="198.0" layoutY="100.0" mnemonicParsing="false" onAction="#DodajHosta" prefHeight="25.0" prefWidth="150.0" text="Add" />
+            <Button fx:id="addNas" layoutX="517.0" layoutY="61.0" mnemonicParsing="false" onAction="#DodajNas" text="AddNas" />
+            <Button fx:id="addVlan" layoutX="448.0" layoutY="61.0" mnemonicParsing="false" onAction="#DodajVlan" text="Add Vlan" />
          </children>
         </Pane>
     </children>

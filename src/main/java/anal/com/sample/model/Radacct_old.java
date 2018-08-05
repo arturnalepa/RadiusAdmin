@@ -10,12 +10,13 @@ import java.math.BigInteger;
  * 
  */
 @Entity
-@NamedQuery(name="Radacct.findAll", query="SELECT r FROM Radacct r")
-public class Radacct implements Serializable {
+@NamedQuery(name="Radacct_old.findAll", query="SELECT r FROM Radacct_old r")
+public class Radacct_old implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private String radAcctId;
 
 	private String acctAuthentic;
@@ -66,7 +67,7 @@ public class Radacct implements Serializable {
 
 	private String userName;
 
-	public Radacct() {
+	public Radacct_old() {
 	}
 
 	public String getRadAcctId() {

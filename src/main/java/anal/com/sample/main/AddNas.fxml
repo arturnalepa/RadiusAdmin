@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="493.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.AddNas">
+   <children>
+      <Pane layoutX="14.0" layoutY="79.0" prefHeight="414.0" prefWidth="216.0">
+         <children>
+            <VBox layoutX="-4.0" prefHeight="424.0" prefWidth="219.0">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="219.0">
+                     <children>
+                        <TextField fx:id="ipoctet1" alignment="CENTER" onKeyPressed="#MAx3char" prefHeight="25.0" prefWidth="42.0" promptText="192">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="ipoctet2" alignment="CENTER" onKeyPressed="#MAx3char" prefHeight="25.0" prefWidth="42.0" promptText="168">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="ipoctet3" alignment="CENTER" onKeyPressed="#MAx3char" prefHeight="25.0" prefWidth="42.0" promptText="88">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="ipoctet4" alignment="CENTER" onKeyPressed="#MAx3char" prefHeight="25.0" prefWidth="42.0" promptText="100" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </HBox>
+                  <TextField fx:id="nassecret" promptText="Nas Secret">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextField>
+                  <TextField fx:id="nasshortname" promptText="Nas Short name">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextField>
+                  <TextField fx:id="nasport" promptText="Nas Port default 1812">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextField>
+                  <TextField fx:id="nascomunity" promptText="Nas Community">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextField>
+                  <TextArea fx:id="nasdescription" prefHeight="192.0" prefWidth="219.0" promptText="Nas Description">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextArea>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane layoutX="242.0" layoutY="79.0" prefHeight="377.0" prefWidth="712.0">
+         <children>
+            <TableView fx:id="nastable" prefHeight="368.0" prefWidth="706.0">
+              <columns>
+                  <TableColumn fx:id="tabnas_c1" maxWidth="1.7976931348623157E308" prefWidth="121.0" resizable="false" text="c1" />
+                  <TableColumn fx:id="tabnas_c2" prefWidth="82.0" resizable="false" text="c2" />
+                <TableColumn fx:id="tabnas_c3" prefWidth="72.0" resizable="false" text="c3" />
+                <TableColumn fx:id="tabnas_c4" prefWidth="62.0" resizable="false" text="c4" />
+                  <TableColumn fx:id="tabnas_c5" prefWidth="94.0" resizable="false" text="c5" />
+                  <TableColumn fx:id="tabnas_c6" prefWidth="112.0" resizable="false" text="c6" />
+                  <TableColumn fx:id="tabnas_c7" maxWidth="255.0" prefWidth="154.0" resizable="false" text="c7" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="56.0" prefWidth="669.0">
+         <children>
+            <Button fx:id="addnas" mnemonicParsing="false" onAction="#AddNas" prefHeight="25.0" prefWidth="134.0" text="Add Nas" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

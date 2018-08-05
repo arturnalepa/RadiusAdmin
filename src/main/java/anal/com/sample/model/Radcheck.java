@@ -7,34 +7,44 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the radcheck database table.
- * 
+ * USER
  */
 @Entity
 @NamedQuery(name="Radcheck.findAll", query="SELECT r FROM Radcheck r")
+@Table(name = "radcheck")
 public class Radcheck implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 
+	private int id;
+	@Column(name = "Attribute")
 	private String Attribute;
 
 	private String op;
 
+
 	private String userName;
 @Column(name = "value")
-	private String Vlan;
+	private String Password;
 	public Radcheck() {
 	}
 
-    public Radcheck(String userName, String attribute, String op, String Vlan){
+    public Radcheck(String userName, String attribute, String op, String password){
 	    this.userName=userName;
 	    this.Attribute=attribute;
 	    this.op=op;
-	    this.Vlan=Vlan;
+	    this.Password=password;
 
     }
+	public Radcheck(String userName, String password){
+		this.userName=userName;
+		this.Attribute="Cleartext-Password";
+		this.op=":=";
+		this.Password=password;
+
+	}
 	public int getId() {
 		return this.id;
 	}
@@ -67,8 +77,8 @@ public class Radcheck implements Serializable {
 		this.userName = userName;
 	}
 
-	public String getVlan() {
-		return this.Vlan;
+	public String getPassword() {
+		return this.Password;
 	}
 
     public List<Radcheck> getAllVlan(){

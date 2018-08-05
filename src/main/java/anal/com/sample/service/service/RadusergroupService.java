@@ -20,8 +20,8 @@ public class RadusergroupService implements IRadusergroupService {
     }
 
     @Override
-    public List<Radusergroup> getAllPersons() {
-        return broker.getAllPersons();
+    public List<Radusergroup> getAllPersonsInGroup(String groupname) {
+        return broker.getAllPersonsInGroup(groupname);
     }
 
     @Override
@@ -41,5 +41,13 @@ public class RadusergroupService implements IRadusergroupService {
     @Override
     public Radusergroup testowa2() {
         return null;
+    }
+    @Override
+    public String getGroupbyVlan(String VlanGroupName) {
+        return broker.getGroupbyVlan(VlanGroupName);
+    }
+    @Override
+    public Radusergroup getUserNameToGroup(String username){
+        return broker.getUserNameToGroup(username);
     }
 }

@@ -20,8 +20,8 @@ public class RadcheckService implements IRadcheckService {
     }
 
     @Override
-    public List<Radcheck>  getAllVlan() {
-         return broker.getAllVlan();
+    public List<Radcheck> getAllHost() {
+         return broker.getAllHost();
     }
 
 //    @Override

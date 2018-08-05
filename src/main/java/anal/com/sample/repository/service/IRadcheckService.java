@@ -7,7 +7,7 @@ import java.util.List;
 @Repository
 public interface IRadcheckService {
     void saveOrUpdate(Radcheck person);
-    List<Radcheck>  getAllVlan();
+    List<Radcheck> getAllHost();
     Radcheck getGroupByVlanId(int id);
     Radcheck getPersonByEmail(String email);
     Radcheck testowa();

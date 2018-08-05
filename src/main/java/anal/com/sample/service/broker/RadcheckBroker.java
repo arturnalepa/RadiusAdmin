@@ -33,16 +33,27 @@ public class RadcheckBroker implements IRadcheckBroker {
     }
 
     @Override
-    public List<Radcheck> getAllVlan() {
+    public List<Radcheck> getAllHost() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
         Root<Radcheck> root = cq.from(Radcheck.class);
-        Predicate condition = cb.equal(root.get("Attribute"), "Tunnel-Private-Group-ID");
+       Predicate condition = cb.equal(root.get("Attribute"), "Cleartext-Password");
         cq.where(condition);
-        cq.orderBy(cb.asc(root.get("Vlan")));
+        cq.orderBy(cb.asc(root.get("Password")));
         cq.distinct(true);
         TypedQuery<Radcheck> query = em.createQuery(cq);
-       List<Radcheck> radcheck = query.getResultList();
+        List<Radcheck> radcheck = query.getResultList();
+
+
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
+//        Root<Radcheck> root = cq.from(Radcheck.class);
+//        Predicate condition = cb.equal(root.get("Attribute"), "Tunnel-Private-Group-ID");
+//        cq.where(condition);
+//        cq.orderBy(cb.asc(root.get("Password")));
+//        cq.distinct(true);
+//        TypedQuery<Radcheck> query = em.createQuery(cq);
+//       List<Radcheck> radcheck = query.getResultList();
       return radcheck;
 }
 
@@ -52,14 +63,14 @@ public class RadcheckBroker implements IRadcheckBroker {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
         Root<Radcheck> root = cq.from(Radcheck.class);
-        Predicate condition = cb.equal(root.get("Value"), id);
+        Predicate condition = cb.equal(root.get("Vlan"), id);
         cq.where(condition);
-        cq.orderBy(cb.asc(root.get("UserName")));
-        cq.distinct(true);
+        cq.orderBy(cb.asc(root.get("userName")));
+     //   cq.distinct(true);
         TypedQuery<Radcheck> query = em.createQuery(cq);
-        List<Radcheck> radcheck = query.getResultList();
-
-return radcheck.get(0);
+        Radcheck radcheck = query.getSingleResult();
+System.out.println("Wyszukany MAc address: "+radcheck.getMacAddress());
+return radcheck;
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

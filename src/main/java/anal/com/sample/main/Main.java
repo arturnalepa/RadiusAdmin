@@ -34,8 +34,9 @@ public class Main extends Application {
 
 
         try {
-            root = FXMLLoader.load(getClass().getResource("scene1.fxml"));
-            Scene scene = new Scene(root, 300, 275);
+            root = FXMLLoader.load(getClass().getResource("scene2.fxml"));
+         //   Scene scene = new Scene(root, 300, 275);
+            Scene scene = new Scene(root);
             stage.setTitle("FXML Welcome");
             stage.setScene(scene);
             stage.show();

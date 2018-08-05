@@ -23,7 +23,10 @@ public class RadgroupreplyService implements IRadgroupreplyService {
     public List<Radgroupreply> getAllPersons() {
         return broker.getAllPersons();
     }
-
+    @Override
+    public List<Radgroupreply> getAllVlan() {
+        return broker.getAllVlan();
+    }
     @Override
     public Radgroupreply getPersonById() {
         return broker.getPersonById();
@@ -41,5 +44,12 @@ public class RadgroupreplyService implements IRadgroupreplyService {
     @Override
     public Radgroupreply testowa2() {
         return null;
+    }
+    @Override
+     public Radgroupreply getGroupByVlan(String selvlan) {
+       return broker.getGroupByVlan(selvlan);
+    }
+    @Override
+    public Radgroupreply getVlanbyGroup(String gropuname) {return broker.getVlanbyGroup(gropuname);
     }
 }

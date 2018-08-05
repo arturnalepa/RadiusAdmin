@@ -9,17 +9,19 @@ import java.io.Serializable;
  */
 @Entity
 @NamedQuery(name="Radusergroup.findAll", query="SELECT r FROM Radusergroup r")
+@NamedQuery(name="Radusergroup.findetAllPersonsInGroup", query="SELECT c FROM Radusergroup c where c.groupName = :groupName")
+//SELECT * FROM radius.radusergroup where radusergroup.GroupName = "groupa1"
 @Table(name = "radusergroup")
 public class Radusergroup  implements Serializable {
 	private static final long serialVersionUID = 1L;
 //	@Id
 //	@GeneratedValue
 //	private int id;
-	@Id
+//	@Id
 	private String groupName;
 
 	private int priority;
-
+@Id
 	private String userName;
 
 	public Radusergroup() {
