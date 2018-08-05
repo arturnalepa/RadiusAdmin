@@ -10,7 +10,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="629.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.scene2Controler">
     <children>
@@ -43,6 +45,14 @@
             <Button fx:id="addVlan" layoutX="448.0" layoutY="61.0" mnemonicParsing="false" onAction="#DodajVlan" text="Add Vlan" />
          </children>
         </Pane>
-      <Pane layoutX="599.0" layoutY="4.0" prefHeight="614.0" prefWidth="420.0" />
+      <Pane layoutX="599.0" layoutY="4.0" prefHeight="614.0" prefWidth="420.0">
+         <children>
+            <HBox layoutX="8.0" layoutY="10.0" prefHeight="596.0" prefWidth="409.0">
+               <children>
+                  <VBox prefHeight="596.0" prefWidth="209.0" />
+                  <VBox prefHeight="596.0" prefWidth="196.0" />
+               </children>
+            </HBox>
+         </children></Pane>
     </children>
 </AnchorPane>
