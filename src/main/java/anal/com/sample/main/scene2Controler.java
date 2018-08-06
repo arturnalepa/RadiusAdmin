@@ -9,8 +9,13 @@ import anal.com.sample.repository.service.IRadusergroupService;
 import anal.com.sample.service.service.RadcheckService;
 import anal.com.sample.service.service.RadgroupreplyService;
 import anal.com.sample.service.service.RadusergroupService;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -76,6 +81,9 @@ public class scene2Controler {
 	ObservableList<String> masterDataa = FXCollections.observableArrayList();
 	boolean copypassword;
 
+///////////do sorotwania
+
+
 
 
 	public void  initialize() {
@@ -92,37 +100,76 @@ public class scene2Controler {
 	//	PObierzDaneDoTabeli(VlanGroupName);
 
 
+		InitFilter();
+
 
 		assert personTable != null : "fx:id=\"Table\" was not injected: check your FXML file 'scene2.fxml'.";
 
 	}
 
+	private void InitFilter() {
+		FilteredList<UserTableData> filteredData = new FilteredList<>(personData, p -> true);
+		VlanGroup.valueProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(myObject -> {
+				if (newValue == "all" ) {
+					return true;
+				}
+				if (String.valueOf(myObject.getColvlan()).matches((newValue.toString()))) {
+					return true;
+					// Filter matches first name.
+				} else
+				return false; // Does not match.
+			});
+		});
+		// 2. Set the filter Predicate whenever the filter changes.
+		MacAddress.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(myObject -> {
+				// If filter text is empty, display all persons.
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				// Compare first name and last name field in your object with filter.
+				String lowerCaseFilter = newValue.toLowerCase();
+				if (String.valueOf(myObject.getColmacaddress()).toLowerCase().contains(lowerCaseFilter)) {
+					return true;
+				// Filter matches first name.
+				} else if (String.valueOf(myObject.getColmacpassword()).toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches last name.
+				}
+				return false; // Does not match.
+			});
+		});
+		// 3. Wrap the FilteredList in a SortedList.
+		SortedList<UserTableData> sortedData = new SortedList<>(filteredData);
+		// 4. Bind the SortedList comparator to the TableView comparator.
+		sortedData.comparatorProperty().bind(personTable.comparatorProperty());
+		// 5. Add sorted (and filtered) data to the table.
+		personTable.setItems(sortedData);
+	}
+
 
 	private void PObierzDaneDoTabeli(String VlanGroupName) {
-
-		List<UserTableData> userTableDataList=new ArrayList<UserTableData>();
-		List<Radcheck> userList = serviceRadcheck.getAllHost();
-
-		for(Radcheck r :userList){
-
-
-		//	System.out.println(serviceRadusergroup.getGroupbyVlan(VlanGroupName));  ///zreaca nr vlanu
-
-			UserTableData userTableData = new UserTableData();
-			userTableData.setColvlan(serviceRadusergroup.getGroupbyVlan(VlanGroupName));
-			userTableData.setColmacaddress(r.getUserName());
-			userTableData.setColmacpassword(r.getPassword());
-			userTableDataList.add(userTableData);
-
-
-		}
-
-
-
-		userData.setAll(userTableDataList);
-		personData.setAll(userTableDataList);
-		personTable.setItems(userData);
-		personTable.setEditable(true);
+//		//Integer.parseInt(VlanGroupName);
+//		List<UserTableData> userTableDataList=new ArrayList<UserTableData>();
+//		List<Radcheck> userList = serviceRadcheck.getGroupByVlanId(1);
+//		for(Radcheck r :userList){
+//			UserTableData userTableData = new UserTableData();
+//			userTableData.setColmacaddress(r.getUserName());
+//			userTableData.setColmacpassword(r.getPassword());
+//			userTableData.setColvlan(serviceRadgroupreply.
+//					getVlanbyGroup(serviceRadusergroup.getUserNameToGroup(r.getUserName())
+//							.getGroupName()).getValue());
+////wez username sprawdz w jakiej jest grupie
+//			//wez grupe i zobacz jaki to vlan
+//			//podstaw vlan do smiennej
+////Radgroupreply groupname to vla
+////radusergroup username to groupname
+//			userTableDataList.add(userTableData);
+//		}
+//		userData.setAll(userTableDataList);
+//		personData.setAll(userTableDataList);
+//		personTable.setItems(userData);
+//		personTable.setEditable(true);
 
 		}
 
@@ -144,6 +191,12 @@ public class scene2Controler {
 	//	ObservableList<String> tmp = FXCollections.observableArrayList(initVlanCombo());
 		colvlan.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), VlanData));
 	//	colvlan.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), );
+
+
+
+
+
+
 		 		colvlan.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<UserTableData, String>>() {
 			public void handle(TableColumn.CellEditEvent<UserTableData, String> event) {
 				System.out.println(event.getNewValue());
@@ -303,6 +356,7 @@ public class scene2Controler {
 			serviceRadcheck.saveOrUpdate(user);
 //			PObierzDaneDoTabeli(VlanGroupName);
 			initializeColumns();
+			InitFilter();
 		MacAddress.setText("");
 		if(checkMacPass.isSelected()!=true){
 		MacPassword.setText("");
@@ -313,9 +367,10 @@ public class scene2Controler {
 	private List<String> initVlanCombo(){
 		List<Radgroupreply> vlanlist = serviceRadgroupreply.getAllVlan();
 		for (Radgroupreply c : vlanlist) {
-	VlanData.add(c.getValue());
-	masterDataa.add(c.getValue());
+		VlanData.add(c.getValue());
+		masterDataa.add(c.getValue());
 					}
+					VlanData.add("all");
 	VlanGroup.setItems(FXCollections.observableArrayList(VlanData)); //wstaw dane do combo
 		return VlanData;
 	}
@@ -348,14 +403,19 @@ public class scene2Controler {
 		//selvlan.toString();
 	//	serviceRadcheck.getGroupByVlanId(Integer.parseInt(selvlan));
 		System.out.println(selvlan);
-	//	System.out.println(serviceRadcheck.getGroupByVlanId(Integer.parseInt(	vlanid.toString())));
-	//	PObierzDaneDoTabeli(selvlan);
-		VlanSelected=Integer.parseInt(selvlan);
-		Radgroupreply groupname = serviceRadgroupreply.getGroupByVlan(selvlan); ///szukaj nazwy grupy
-		VlanGroupName=groupname.getGroupName();
+
+		if(selvlan!="all") {
+
+			//	System.out.println(serviceRadcheck.getGroupByVlanId(Integer.parseInt(	vlanid.toString())));
+			PObierzDaneDoTabeli(selvlan);
+			VlanSelected = Integer.parseInt(selvlan);
+			Radgroupreply groupname = serviceRadgroupreply.getGroupByVlan(selvlan); ///szukaj nazwy grupy
+			VlanGroupName = groupname.getGroupName();
+			return Integer.parseInt(selvlan);
+		}
+return null;
 
 
-return Integer.parseInt(selvlan) ;
 	}
 
 	public void DodajNas(ActionEvent actionEvent) throws IOException {
