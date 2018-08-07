@@ -208,6 +208,9 @@ public class scene2Controler {
 
 		List<UserTableData> userTableDataList=new ArrayList<UserTableData>();
 		List<Radcheck> userList = serviceRadcheck.getAllHost();
+		for(Radcheck r :userList) {
+	//		System.out.println(r.getUserName());
+		}
 
 		for(Radcheck r :userList){
 
@@ -215,9 +218,12 @@ public class scene2Controler {
 			UserTableData userTableData = new UserTableData();
 			userTableData.setColmacaddress(r.getUserName());
 			userTableData.setColmacpassword(r.getPassword());
-			userTableData.setColvlan(serviceRadgroupreply.
-					getVlanbyGroup(serviceRadusergroup.getUserNameToGroup(r.getUserName())
-							.getGroupName()).getValue());
+
+			Radusergroup group = serviceRadusergroup.getUserNameToGroup(r.getUserName());
+            System.out.println(group.getGroupName());
+			Radgroupreply vlan = serviceRadgroupreply.getVlanbyGroup(group.getGroupName());
+			System.out.println(vlan.getValue());
+			userTableData.setColvlan(vlan.getValue());
 
 //wez username sprawdz w jakiej jest grupie
 			//wez grupe i zobacz jaki to vlan

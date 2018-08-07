@@ -63,6 +63,7 @@ return vlan;
 
     @Override
     public Radgroupreply getGroupByVlan(String selvlan) {
+        em.getTransaction().begin();
         Radgroupreply radgroupreply = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radgroupreply> cq = cb.createQuery(Radgroupreply.class);
@@ -72,6 +73,7 @@ return vlan;
         cq.orderBy(cb.asc(root.get("groupName")));
         cq.distinct(true);
         TypedQuery<Radgroupreply> query = em.createQuery(cq);
+        em.getTransaction().commit();
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radgroupreply) query.getSingleResult();
@@ -81,12 +83,15 @@ return vlan;
         if (radgroupreply == null) {
        //     System.out.println("W grupie: " + radgroupreply);
            return null;
+
         } else {
             return radgroupreply;
         }
+
     }
 
     public Radgroupreply getVlanbyGroup(String gropuname) {
+        em.getTransaction().begin();
         Radgroupreply radgroupreply = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radgroupreply> cq = cb.createQuery(Radgroupreply.class);
@@ -98,6 +103,7 @@ return vlan;
         cq.orderBy(cb.asc(root.get("value")));
         cq.distinct(true);
         TypedQuery<Radgroupreply> query = em.createQuery(cq);
+        em.getTransaction().commit();
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radgroupreply) query.getSingleResult();
@@ -105,8 +111,10 @@ return vlan;
         } catch (NoResultException nre) {
         }
         if (radgroupreply == null) {
-          //  System.out.println("W grupie: " + radgroupreply);
-            return null;
+         //   System.out.println("W grupie: " + radgroupreply);
+            Radgroupreply rep = new Radgroupreply();
+            rep.setValue("0");
+            return rep ;
         } else {
             return radgroupreply;
         }

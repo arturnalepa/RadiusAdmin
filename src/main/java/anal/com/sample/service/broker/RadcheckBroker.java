@@ -34,10 +34,11 @@ public class RadcheckBroker implements IRadcheckBroker {
 
     @Override
     public List<Radcheck> getAllHost() {
+
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
         Root<Radcheck> root = cq.from(Radcheck.class);
-       Predicate condition = cb.equal(root.get("Attribute"), "Cleartext-Password");
+       Predicate condition = cb.equal(root.get("Attribute"), "User-Password");
         cq.where(condition);
         cq.orderBy(cb.asc(root.get("Password")));
         cq.distinct(true);

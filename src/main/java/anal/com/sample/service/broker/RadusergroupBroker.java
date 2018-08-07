@@ -37,7 +37,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
 
     @Override
     public List<Radusergroup> getAllPersonsInGroup(String groupname) {
-
+        em.getTransaction().begin();
         List<Radusergroup> radusergroup = null;
         System.out.println("Wybrana Grupa :"+groupname);
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -48,7 +48,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
 
         TypedQuery<Radusergroup> query = em.createQuery(cq.select(root).where(condition));
        radusergroup = query.getResultList();
-
+        em.getTransaction().commit();
               return radusergroup;
 }
 
@@ -63,6 +63,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
     }
     @Override
     public String getGroupbyVlan(String  VlanGroupName) {
+        em.getTransaction().begin();
         Radusergroup radgroupreply = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radusergroup> cq = cb.createQuery(Radusergroup.class);
@@ -72,6 +73,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         cq.orderBy(cb.asc(root.get("groupName")));
         cq.distinct(true);
         TypedQuery<Radusergroup> query = em.createQuery(cq);
+        em.getTransaction().commit();
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radusergroup) query.getSingleResult();
@@ -88,6 +90,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
     }
     @Override
     public Radusergroup getUserNameToGroup(String  username) {
+        em.getTransaction().begin();
         Radusergroup radusergroup = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radusergroup> cq = cb.createQuery(Radusergroup.class);
@@ -97,15 +100,28 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         cq.orderBy(cb.asc(root.get("userName")));
         cq.distinct(true);
         TypedQuery<Radusergroup> query = em.createQuery(cq);
+        em.getTransaction().commit();
+        System.out.println("Dla : "+username);
         //  radgroupreply = query.getSingleResult();
         try {
+
             radusergroup = query.getSingleResult();
             //      System.out.println("W grupie: " + radgroupreply.getGroupName());
         } catch (NoResultException nre) {
+
+            System.out.println(nre.getMessage());
+
+            List<Radusergroup> radlist = query.getResultList();
+            for(Radusergroup rg : radlist){
+                System.out.println("Zdublowany MACAddress: "+rg.getUserName());
+            }
+
         }
         if (radusergroup == null) {
             //     System.out.println("W grupie: " + radgroupreply);
-            return radusergroup;
+            Radusergroup rad = new Radusergroup();
+            rad.setGroupName("BrakGrupy");
+            return rad;
         } else {
             return radusergroup;
         }
