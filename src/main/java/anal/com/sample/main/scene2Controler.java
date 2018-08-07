@@ -435,6 +435,14 @@ return null;
 
 	}
 
-	public void DodajVlan(ActionEvent actionEvent) {
+	public void DodajVlan(ActionEvent actionEvent) throws IOException {
+		Stage stage = new Stage();
+		Parent root = FXMLLoader.load(getClass().getResource("AddVlan.fxml"));
+		stage.setScene(new Scene(root));
+		stage.setTitle("Nas Add");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.show();
+
+
 	}
 }
