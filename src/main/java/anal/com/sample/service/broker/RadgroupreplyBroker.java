@@ -109,6 +109,7 @@ return vlan;
             radgroupreply = (Radgroupreply) query.getSingleResult();
      //       System.out.println("W Vlanie: " + radgroupreply.getValue());
         } catch (NoResultException nre) {
+
         }
         if (radgroupreply == null) {
          //   System.out.println("W grupie: " + radgroupreply);

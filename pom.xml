@@ -10,6 +10,13 @@
     <build>
         <resources>
             <resource>
+                <directory>src/main/resources/META-INF</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>persistence.xml</include>
+                </includes>
+            </resource>
+            <resource>
                 <filtering>false</filtering>
                 <directory>src/main/java</directory>
                 <includes>
@@ -17,6 +24,7 @@
                 </includes>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -142,7 +150,12 @@
             <version>5.3.4.Final</version>
         </dependency>
 
-
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>5.3.4.Final</version>
+        </dependency>
     </dependencies>
 </project>
 
