@@ -70,7 +70,7 @@ public class RadcheckBroker implements IRadcheckBroker {
      //   cq.distinct(true);
         TypedQuery<Radcheck> query = em.createQuery(cq);
         Radcheck radcheck = query.getSingleResult();
-System.out.println("Wyszukany MAc address: "+radcheck.getMacAddress());
+        System.out.println("Wyszukany MAc address: "+radcheck.getMacAddress());
 return radcheck;
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

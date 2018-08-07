@@ -101,7 +101,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         cq.distinct(true);
         TypedQuery<Radusergroup> query = em.createQuery(cq);
         em.getTransaction().commit();
-        System.out.println("Dla : "+username);
+     //   System.out.println("Dla : "+username);
         //  radgroupreply = query.getSingleResult();
         try {
 
