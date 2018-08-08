@@ -1,6 +1,6 @@
 package anal.com.sample.service.service;
 
-import anal.com.sample.model.Radacct_old;
+import anal.com.sample.model.Radacct;
 import anal.com.sample.repository.broker.IRadacctBroker;
 import anal.com.sample.repository.service.IRadacctService;
 import anal.com.sample.service.broker.RadacctBroker;
@@ -15,12 +15,12 @@ public class RadacctService implements IRadacctService {
     }
 
     @Override
-    public void saveOrUpdate(Radacct_old person) {
+    public void saveOrUpdate(Radacct person) {
         broker.saveOrUpdate(person);
     }
 
     @Override
-    public List<Radacct_old>  getAllVlan() {
+    public List<Radacct>  getAllVlan() {
          return broker.getAllVlan();
     }
 
@@ -30,20 +30,20 @@ public class RadacctService implements IRadacctService {
 //    }
 
     @Override
-    public Radacct_old getPersonByEmail(String email) {
+    public Radacct getPersonByEmail(String email) {
         return null;
     }
 
     @Override
-    public Radacct_old testowa() {
+    public Radacct testowa() {
         return null;
     }
     @Override
-    public Radacct_old testowa2() {
+    public Radacct testowa2() {
         return null;
     }
 
-    public Radacct_old getGroupByVlanId(int id) {return  broker.getGroupByVlanId(id);
+    public Radacct getGroupByVlanId(int id) {return  broker.getGroupByVlanId(id);
     }
 
 }

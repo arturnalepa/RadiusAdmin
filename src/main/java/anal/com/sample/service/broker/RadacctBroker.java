@@ -1,6 +1,6 @@
 package anal.com.sample.service.broker;
 
-import anal.com.sample.model.Radacct_old;
+import anal.com.sample.model.Radacct;
 import anal.com.sample.repository.broker.IRadacctBroker;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,14 +22,14 @@ public class RadacctBroker implements IRadacctBroker {
 
 
     @Override
-    public void saveOrUpdate(Radacct_old person) {
+    public void saveOrUpdate(Radacct person) {
         em.getTransaction().begin();
         em.merge(person);
         em.getTransaction().commit();
     }
 
     @Override
-    public List<Radacct_old> getAllVlan() {
+    public List<Radacct> getAllVlan() {
 //        CriteriaBuilder cb = em.getCriteriaBuilder();
 //        CriteriaQuery<Radcheck> cq = cb.createQuery(Nas.class);
 //        Root<Nas> root = cq.from(Nas.class);
@@ -43,7 +43,7 @@ public class RadacctBroker implements IRadacctBroker {
 }
 
     @Override
-    public Radacct_old getGroupByVlanId(int id) {
+    public Radacct getGroupByVlanId(int id) {
 
 //        CriteriaBuilder cb = em.getCriteriaBuilder();
 //        CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
@@ -60,7 +60,7 @@ return null;
     }
 
     @Override
-    public Radacct_old getPersonByEmail(String email) {
+    public Radacct getPersonByEmail(String email) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -1,18 +1,18 @@
 package anal.com.sample.repository.service;
 
-import anal.com.sample.model.Radacct_old;
+import anal.com.sample.model.Radacct;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface IRadacctService {
-    void saveOrUpdate(Radacct_old person);
-    List<Radacct_old>  getAllVlan();
-    Radacct_old getGroupByVlanId(int id);
-    Radacct_old getPersonByEmail(String email);
-    Radacct_old testowa();
-    Radacct_old testowa2();
+    void saveOrUpdate(Radacct person);
+    List<Radacct>  getAllVlan();
+    Radacct getGroupByVlanId(int id);
+    Radacct getPersonByEmail(String email);
+    Radacct testowa();
+    Radacct testowa2();
 
 
 
