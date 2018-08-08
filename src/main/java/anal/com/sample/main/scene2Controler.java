@@ -34,6 +34,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+
+import java.lang.NullPointerException;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -266,7 +268,7 @@ public class scene2Controler {
          TableColumn<UserTableData, String> colmacpassword   = new TableColumn<UserTableData, String>("MacPassword");
          TableColumn<UserTableData, String> colvlan   = new TableColumn<UserTableData, String>("Vlan");
 
-         personTable.getColumns().setAll(colname,colmacaddress,colmacpassword,colvlan);
+        personTable.getColumns().setAll(colname,colmacaddress,colmacpassword,colvlan);
 		colname.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colname"));
         colmacaddress.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacaddress"));
         colmacpassword.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacpassword"));
@@ -274,36 +276,34 @@ public class scene2Controler {
 	//	ObservableList<String> tmp = FXCollections.observableArrayList(initVlanCombo());
 		colvlan.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), VlanData));
 	//	colvlan.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), );
-
-
-
-
-
-
-		 		colvlan.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<UserTableData, String>>() {
+ 		colvlan.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<UserTableData, String>>() {
 			public void handle(TableColumn.CellEditEvent<UserTableData, String> event) {
 				System.out.println(event.getNewValue());
 			}
 		});
 
-
-
-
 		List<UserTableData> userTableDataList=new ArrayList<UserTableData>();
 		List<Radcheck> userList = serviceRadcheck.getAllHost();
-		for(Radcheck r :userList) {
-	//		System.out.println(r.getUserName());
-		}
-
+//		for(Radcheck r :userList) {
+//	//		System.out.println(r.getUserName());
+//		}
+        userinfoService = new UserinfoService();
 		for(Radcheck r :userList){
-
-
 			UserTableData userTableData = new UserTableData();
 			userTableData.setColmacaddress(r.getUserName());
 			userTableData.setColmacpassword(r.getPassword());
-
 			Radusergroup group = serviceRadusergroup.getUserNameToGroup(r.getUserName());
-            System.out.println(group.getGroupName());
+            //Userinfo  userinfo = new Userinfo();
+     //       System.out.println("szukany mack :"+ r.getMacAddress());
+                     //      userinfoService = new UserinfoService();
+          //       userinfo = userinfoService.findUserInfo(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
+
+               Userinfo userinfo = userinfoService.findUserInfo(r.getMacAddress());
+               userTableData.setColname(userinfo.getFirstname());
+
+
+
+  //          System.out.println(group.getGroupName());
 			Radgroupreply vlan = serviceRadgroupreply.getVlanbyGroup(group.getGroupName());
 //			System.out.println(vlan.getValue());
 			userTableData.setColvlan(vlan.getValue());

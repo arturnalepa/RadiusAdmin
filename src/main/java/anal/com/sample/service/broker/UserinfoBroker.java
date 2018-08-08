@@ -51,9 +51,11 @@ public class UserinfoBroker implements IUserinfoBroker {
             userinfo = query.getSingleResult();
             //      System.out.println("W grupie: " + radgroupreply.getGroupName());
         } catch (NoResultException nre) {
+            userinfo.setFirstname("");
         }
         if (userinfo == null) {
             //     System.out.println("W grupie: " + radgroupreply);
+            userinfo.setFirstname("a");
             return userinfo;
         } else {
             return userinfo;
