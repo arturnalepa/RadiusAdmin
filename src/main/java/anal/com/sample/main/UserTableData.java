@@ -10,15 +10,28 @@ public class UserTableData {
 
     private String colvlan;
 
+    private String colnotes;
+
+
     public UserTableData() {
 
     }
 
-    public UserTableData(String colname, String colmacaddress, String colmacpassword, String colvlan) {
+    public UserTableData(String colname, String colmacaddress, String colmacpassword, String colvlan, String colnotes) {
         this.colname = colname;
         this.colmacaddress = colmacaddress;
         this.colmacpassword = colmacpassword;
         this.colvlan = colvlan;
+        this.colnotes = colnotes;
+    }
+
+
+    public String getColnotes() {
+        return colnotes;
+    }
+
+    public void setColnotes(String colnotes) {
+        this.colnotes = colnotes;
     }
 
     public String getColname() {

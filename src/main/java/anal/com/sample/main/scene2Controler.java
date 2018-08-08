@@ -71,6 +71,9 @@ public class scene2Controler {
 	private TableColumn<UserTableData, String> colmacpassword;
 	@FXML
 	private TableColumn<UserTableData,String> colvlan;
+    @FXML
+    private TableColumn<UserTableData, String> colnotes;
+
 	@FXML
 	private Label firstname;
 
@@ -267,12 +270,17 @@ public class scene2Controler {
     	 TableColumn<UserTableData, String> colmacaddress   = new TableColumn<UserTableData, String>("MacAddress");
          TableColumn<UserTableData, String> colmacpassword   = new TableColumn<UserTableData, String>("MacPassword");
          TableColumn<UserTableData, String> colvlan   = new TableColumn<UserTableData, String>("Vlan");
+        TableColumn<UserTableData, String> colnotes   = new TableColumn<UserTableData, String>("Opis");
 
-        personTable.getColumns().setAll(colname,colmacaddress,colmacpassword,colvlan);
+        personTable.getColumns().setAll(colname,colmacaddress,colmacpassword,colvlan,colnotes);
+
 		colname.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colname"));
         colmacaddress.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacaddress"));
         colmacpassword.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacpassword"));
         colvlan.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colvlan"));
+        colnotes.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colnotes"));
+
+
 	//	ObservableList<String> tmp = FXCollections.observableArrayList(initVlanCombo());
 		colvlan.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), VlanData));
 	//	colvlan.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), );
@@ -300,7 +308,7 @@ public class scene2Controler {
 
                Userinfo userinfo = userinfoService.findUserInfo(r.getMacAddress());
                userTableData.setColname(userinfo.getFirstname());
-
+                userTableData.setColnotes(userinfo.getNotes());
 
 
   //          System.out.println(group.getGroupName());
