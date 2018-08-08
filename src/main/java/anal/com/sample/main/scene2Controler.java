@@ -3,12 +3,15 @@ package anal.com.sample.main;
 import anal.com.sample.model.Radcheck;
 import anal.com.sample.model.Radgroupreply;
 import anal.com.sample.model.Radusergroup;
+import anal.com.sample.model.Userinfo;
 import anal.com.sample.repository.service.IRadcheckService;
 import anal.com.sample.repository.service.IRadgroupreplyService;
 import anal.com.sample.repository.service.IRadusergroupService;
+import anal.com.sample.repository.service.IUserinfoService;
 import anal.com.sample.service.service.RadcheckService;
 import anal.com.sample.service.service.RadgroupreplyService;
 import anal.com.sample.service.service.RadusergroupService;
+import anal.com.sample.service.service.UserinfoService;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -66,23 +69,52 @@ public class scene2Controler {
 	private TableColumn<UserTableData, String> colmacpassword;
 	@FXML
 	private TableColumn<UserTableData,String> colvlan;
+	@FXML
+	private Label firstname;
+
+	@FXML
+	private Label creationdate;
+
+	@FXML
+	private Label notes;
+	@FXML
+	private Label updatedate;
+
+	@FXML
+	private Label updateby;
+	@FXML
+	private Label creationby;
+	@FXML
+	private Label username;
+
+
+
+
+
+
+
+
+
+
+
+
+
 	private static final Logger logger = Logger.getLogger(Radusergroup.class.getName());
 	ObservableList<String> VlanData = FXCollections.observableArrayList();
-	@FXML
-    private ObservableList<UserTableData> personData = FXCollections.observableArrayList();
+	private ObservableList<UserTableData> personData = FXCollections.observableArrayList();
 	private ObservableList<UserTableData> userData = FXCollections.observableArrayList();
 	//private List<String> VlanData = FXCollections.observableArrayList();
 	private ObservableList<Radgroupreply> radgroupreplyData = FXCollections.observableArrayList();
 	private IRadusergroupService serviceRadusergroup;
 	private IRadcheckService serviceRadcheck;
 	private IRadgroupreplyService serviceRadgroupreply;
+	private IUserinfoService userinfoService;
+
 	private Integer VlanSelected;
+
 	private String VlanGroupName="*";
 	ObservableList<String> masterDataa = FXCollections.observableArrayList();
 	boolean copypassword;
-
-///////////do sorotwania
-
 
 
 
@@ -91,15 +123,13 @@ public class scene2Controler {
 		serviceRadusergroup = new RadusergroupService();
 		serviceRadcheck = new RadcheckService();
 		serviceRadgroupreply = new RadgroupreplyService();
-		//InsertTestData(); //dane testowe
+
+
 
 		AddClient.setVisible(false);
         initializeColumns();
 		//ObservableList<String> tm = FXCollections.observableArrayList(initVlanCombo());
 		initVlanCombo();
-	//	PObierzDaneDoTabeli(VlanGroupName);
-
-
 		InitFilter();
 
 
@@ -178,6 +208,57 @@ public class scene2Controler {
     }
 
 	private void initializeColumns() {
+
+		///////////zwrot wybranej wartoœci
+		personTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+			@Override
+			public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+				//Check whether item is selected and set value of selected item to Label
+				if(personTable.getSelectionModel().getSelectedItem() != null)
+				{
+					System.out.println(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
+					/////////Szukaj danych w Userinfo
+					userinfoService = new UserinfoService();
+					Userinfo userinfo = userinfoService.findUserInfo(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
+
+			if (userinfo.getFirstname()!=null){firstname.setText(userinfo.getFirstname());}
+							if (userinfo.getFirstname()!=null){			creationby.setText(userinfo.getCreationby());}
+
+							if (userinfo.getNotes()!=null){			notes.setText(userinfo.getNotes());}
+							if (userinfo.getUpdateby()!=null){			updateby.setText(userinfo.getUpdateby());}
+
+
+
+							if (userinfo.getUpdatedate()!=null) {
+								if (userinfo.getUpdatedate().toString() != "0000-00-00 00:00:00") {
+									updatedate.setText(userinfo.getUpdatedate().toString());
+								}
+								else{
+									updatedate.setText("");
+								}
+
+							}
+								if (userinfo.getCreationdate()!=null){
+									if(userinfo.getCreationdate().toString()!="0000-00-00 00:00:00"){
+										creationdate.setText(userinfo.getCreationdate().toString());
+									}else{
+										creationdate.setText("");
+									}
+
+
+
+
+}
+
+
+
+
+							username.setText(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
+				}
+			}
+		});
+
+
 		TableColumn<UserTableData, String> colname   = new TableColumn<UserTableData, String>("Name");
     	 TableColumn<UserTableData, String> colmacaddress   = new TableColumn<UserTableData, String>("MacAddress");
          TableColumn<UserTableData, String> colmacpassword   = new TableColumn<UserTableData, String>("MacPassword");

@@ -16,4 +16,7 @@ public class UserinfoService implements IUserinfoService {
     public void saveOrUpdate(Userinfo userinfo) {
         broker.saveOrUpdate(userinfo);
     }
+
+    @Override
+    public Userinfo findUserInfo (String colmacaddress) { return broker.findUserInfo(colmacaddress);  }
 }
