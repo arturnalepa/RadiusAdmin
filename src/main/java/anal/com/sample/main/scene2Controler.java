@@ -222,7 +222,7 @@ public class scene2Controler {
 			Radusergroup group = serviceRadusergroup.getUserNameToGroup(r.getUserName());
             System.out.println(group.getGroupName());
 			Radgroupreply vlan = serviceRadgroupreply.getVlanbyGroup(group.getGroupName());
-			System.out.println(vlan.getValue());
+//			System.out.println(vlan.getValue());
 			userTableData.setColvlan(vlan.getValue());
 
 //wez username sprawdz w jakiej jest grupie
