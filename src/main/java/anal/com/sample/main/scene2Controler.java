@@ -230,19 +230,21 @@ public class scene2Controler {
 
 
 							if (userinfo.getUpdatedate()!=null) {
-								if (userinfo.getUpdatedate().toString() != "0000-00-00 00:00:00") {
+								if (userinfo.getUpdatedate().toString().equals("0000-00-00 00:00:00")) {
 									updatedate.setText(userinfo.getUpdatedate().toString());
 								}
 								else{
 									updatedate.setText("");
+
 								}
 
 							}
 								if (userinfo.getCreationdate()!=null){
-									if(userinfo.getCreationdate().toString()!="0000-00-00 00:00:00"){
+									if(userinfo.getCreationdate().toString().equals("0000-00-00 00:00:00")){
 										creationdate.setText(userinfo.getCreationdate().toString());
 									}else{
 										creationdate.setText("");
+
 									}
 
 
