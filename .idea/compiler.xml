@@ -9,5 +9,8 @@
         <module name="RadiusAdmin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RadiusAdmin" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

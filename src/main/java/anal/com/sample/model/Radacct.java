@@ -6,12 +6,40 @@ import java.math.BigInteger;
 
 
 /**
- * The persistent class for the radacct database table.
- * 
+ AcctStartTime - czas rozpoczêcia sesji
+ AcctStopTime - czas zatrzymania sesji
+ AcctSessionTime - czas sesji w sekundach
+ AcctInputOctects - iloœæ danych wys³anych przez u¿ytkownika
+ AcctOutputOctects - iloœæ danych odebranych przez u¿ytkownika
+ CalledStationId - identyfikator NAS, który obs³ugiwa³ sesjê
+ AcctTerminationCause - co spowodowa³o wylogowanie u¿ytkownika
+ CalledStationID - adres MAC urz¹dzenia, z którego u¿ytkownik siê zalogowa³
+ w
+ FramedIPAddress - adres IP urz¹dzenia, z którego u¿ytkownik siê zalogowa³
+ ou will have to uncomment certain lines in order to enable logging:
+
+ From the authorize section in /etc/raddb/sites-enabled/default file:
+
+ #
+ #  If you want to have a log of authentication requests,
+ #  un-comment the following line, and the 'detail auth_log'
+ #  section, above.
+ #      auth_log
+
+ From the post-auth section in /etc/raddb/sites-enabled/default file:
+
+ #
+ #  If you want to have a log of authentication replies,
+ #  un-comment the following line, and the 'detail reply_log'
+ #  section, above.
+ #      reply_log
+
+
  */
 @Entity
-@NamedQuery(name="Radacct_old.findAll", query="SELECT r FROM Radacct_old r")
-public class Radacct_old implements Serializable {
+@Table(name = "radacct")
+@NamedQuery(name="Radacct.findAll", query="SELECT r FROM Radacct r")
+public class Radacct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -67,7 +95,7 @@ public class Radacct_old implements Serializable {
 
 	private String userName;
 
-	public Radacct_old() {
+	public Radacct() {
 	}
 
 	public String getRadAcctId() {

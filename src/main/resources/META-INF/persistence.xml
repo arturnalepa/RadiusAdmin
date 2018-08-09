@@ -14,7 +14,7 @@
             <!--    <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/radius?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useSSL=false&amp;insecureAuth=true"/>
                 -->
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://172.28.0.99:3306/radius?useUnicode=true&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+                      value="jdbc:mysql://192.168.88.100:3306/radius?useUnicode=true&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=CONVERT_TO_NULL"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.autocommit" value="true"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
