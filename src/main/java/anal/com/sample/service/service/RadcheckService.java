@@ -21,7 +21,7 @@ public class RadcheckService implements IRadcheckService {
 
     @Override
     public List<Radcheck> getAllHost() {
-         return broker.getAllHost();
+        return broker.getAllHost();
     }
 
 //    @Override
@@ -38,12 +38,14 @@ public class RadcheckService implements IRadcheckService {
     public Radcheck testowa() {
         return null;
     }
+
     @Override
     public Radcheck testowa2() {
         return null;
     }
 
-    public Radcheck getGroupByVlanId(int id) {return  broker.getGroupByVlanId(id);
+    public Radcheck getGroupByVlanId(int id) {
+        return broker.getGroupByVlanId(id);
     }
 
 }

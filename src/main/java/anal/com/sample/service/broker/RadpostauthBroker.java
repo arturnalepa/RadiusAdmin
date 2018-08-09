@@ -18,8 +18,6 @@ public class RadpostauthBroker implements IRadpostauthBroker {
     }
 
 
-
-
     @Override
     public void saveOrUpdate(Radpostauth_log person) {
         em.getTransaction().begin();

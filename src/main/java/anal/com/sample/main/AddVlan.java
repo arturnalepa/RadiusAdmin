@@ -3,7 +3,6 @@ package anal.com.sample.main;
 import anal.com.sample.model.Radgroupreply;
 import anal.com.sample.repository.service.IRadgroupreplyService;
 import anal.com.sample.service.service.RadgroupreplyService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -28,6 +27,7 @@ public class AddVlan {
     @FXML
     private Button AddVlan;
     private IRadgroupreplyService serviceRadgroupreply;
+
     public AddVlan() {
 
     }

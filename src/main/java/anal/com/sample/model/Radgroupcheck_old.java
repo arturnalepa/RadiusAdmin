@@ -1,72 +1,71 @@
 package anal.com.sample.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
  * The persistent class for the radgroupcheck database table.
- * 
  */
 @Entity
-@NamedQuery(name="Radgroupcheck_old.findAll", query="SELECT r FROM Radgroupcheck_old r")
-public class Radgroupcheck_old implements Serializable  {
-	private static final long serialVersionUID = 1L;
+@NamedQuery(name = "Radgroupcheck_old.findAll", query = "SELECT r FROM Radgroupcheck_old r")
+public class Radgroupcheck_old implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-	private int id;
+    private int id;
 
-	private String attribute;
+    private String attribute;
 
-	private String groupName;
+    private String groupName;
 
-	private String op;
+    private String op;
 
-	private String value;
+    private String value;
 
-	public Radgroupcheck_old() {
-	}
+    public Radgroupcheck_old() {
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getAttribute() {
-		return this.attribute;
-	}
+    public String getAttribute() {
+        return this.attribute;
+    }
 
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
-	}
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
 
-	public String getGroupName() {
-		return this.groupName;
-	}
+    public String getGroupName() {
+        return this.groupName;
+    }
 
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
-	public String getOp() {
-		return this.op;
-	}
+    public String getOp() {
+        return this.op;
+    }
 
-	public void setOp(String op) {
-		this.op = op;
-	}
+    public void setOp(String op) {
+        this.op = op;
+    }
 
-	public String getValue() {
-		return this.value;
-	}
+    public String getValue() {
+        return this.value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
 }

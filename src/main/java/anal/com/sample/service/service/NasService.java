@@ -20,12 +20,13 @@ public class NasService implements INasService {
     }
 
     @Override
-    public List<Nas>  getAllNas() {
-         return broker.getAllNas();
+    public List<Nas> getAllNas() {
+        return broker.getAllNas();
     }
 
     @Override
-       public Nas getNasByNasname(String nasName) {return  broker.getNasByNasname(nasName);
+    public Nas getNasByNasname(String nasName) {
+        return broker.getNasByNasname(nasName);
     }
 
 }

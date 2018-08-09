@@ -19,8 +19,6 @@ public class RadacctBroker implements IRadacctBroker {
     }
 
 
-
-
     @Override
     public void saveOrUpdate(Radacct person) {
         em.getTransaction().begin();
@@ -39,8 +37,8 @@ public class RadacctBroker implements IRadacctBroker {
 //        cq.distinct(true);
 //        TypedQuery<Nas> query = em.createQuery(cq);
 //       List<Nas> nas = query.getResultList();
-      return null;
-}
+        return null;
+    }
 
     @Override
     public Radacct getGroupByVlanId(int id) {
@@ -55,8 +53,8 @@ public class RadacctBroker implements IRadacctBroker {
 //        TypedQuery<Radcheck> query = em.createQuery(cq);
 //        List<Radcheck> radcheck = query.getResultList();
 
-return null;
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

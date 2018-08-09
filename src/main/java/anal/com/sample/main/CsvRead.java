@@ -2,9 +2,6 @@ package anal.com.sample.main;
 
 import javafx.beans.property.SimpleStringProperty;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 public class CsvRead {
 
     private SimpleStringProperty Computer, Description, IP, MAC;

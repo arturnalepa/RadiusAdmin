@@ -20,8 +20,8 @@ public class RadgroupcheckService implements IRadgroupcheckService {
     }
 
     @Override
-    public List<Radgroupcheck_old>  getAllVlan() {
-         return null;
+    public List<Radgroupcheck_old> getAllVlan() {
+        return null;
     }
 
 //    @Override
@@ -38,12 +38,14 @@ public class RadgroupcheckService implements IRadgroupcheckService {
     public Radgroupcheck_old testowa() {
         return null;
     }
+
     @Override
     public Radgroupcheck_old testowa2() {
         return null;
     }
 
-    public Radgroupcheck_old getGroupByVlanId(int id) {return  broker.getGroupByVlanId(id);
+    public Radgroupcheck_old getGroupByVlanId(int id) {
+        return broker.getGroupByVlanId(id);
     }
 
 }

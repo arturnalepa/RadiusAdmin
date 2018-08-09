@@ -20,8 +20,8 @@ public class RadreplyService implements IRadreplyService {
     }
 
     @Override
-    public List<Radreply_old>  getAllVlan() {
-         return broker.getAllVlan();
+    public List<Radreply_old> getAllVlan() {
+        return broker.getAllVlan();
     }
 
 //    @Override
@@ -38,12 +38,14 @@ public class RadreplyService implements IRadreplyService {
     public Radreply_old testowa() {
         return null;
     }
+
     @Override
     public Radreply_old testowa2() {
         return null;
     }
 
-    public Radreply_old getGroupByVlanId(int id) {return  broker.getGroupByVlanId(id);
+    public Radreply_old getGroupByVlanId(int id) {
+        return broker.getGroupByVlanId(id);
     }
 
 }

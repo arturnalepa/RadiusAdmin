@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+
 @Repository
 @Transactional
 public class RadcheckBroker implements IRadcheckBroker {
@@ -21,8 +22,6 @@ public class RadcheckBroker implements IRadcheckBroker {
     public RadcheckBroker() {
         em = Persistence.createEntityManagerFactory("RadiusAdminHibernate").createEntityManager();
     }
-
-
 
 
     @Override
@@ -38,7 +37,7 @@ public class RadcheckBroker implements IRadcheckBroker {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
         Root<Radcheck> root = cq.from(Radcheck.class);
-       Predicate condition = cb.equal(root.get("Attribute"), "User-Password");
+        Predicate condition = cb.equal(root.get("Attribute"), "User-Password");
         cq.where(condition);
         cq.orderBy(cb.asc(root.get("Password")));
         cq.distinct(true);
@@ -55,8 +54,8 @@ public class RadcheckBroker implements IRadcheckBroker {
 //        cq.distinct(true);
 //        TypedQuery<Radcheck> query = em.createQuery(cq);
 //       List<Radcheck> radcheck = query.getResultList();
-      return radcheck;
-}
+        return radcheck;
+    }
 
     @Override
     public Radcheck getGroupByVlanId(int id) {
@@ -67,12 +66,12 @@ public class RadcheckBroker implements IRadcheckBroker {
         Predicate condition = cb.equal(root.get("Vlan"), id);
         cq.where(condition);
         cq.orderBy(cb.asc(root.get("userName")));
-     //   cq.distinct(true);
+        //   cq.distinct(true);
         TypedQuery<Radcheck> query = em.createQuery(cq);
         Radcheck radcheck = query.getSingleResult();
-        System.out.println("Wyszukany MAc address: "+radcheck.getMacAddress());
-return radcheck;
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Wyszukany MAc address: " + radcheck.getMacAddress());
+        return radcheck;
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

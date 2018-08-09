@@ -1,6 +1,5 @@
 package anal.com.sample.service.broker;
 
-import anal.com.sample.model.Radcheck;
 import anal.com.sample.model.Radusergroup;
 import anal.com.sample.repository.broker.IRadusergroupBroker;
 import org.springframework.stereotype.Repository;
@@ -14,18 +13,17 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Iterator;
 import java.util.List;
+
 @Repository
 @Transactional
 public class RadusergroupBroker implements IRadusergroupBroker {
-    private static final String GroupName = "brak" ;
+    private static final String GroupName = "brak";
     private EntityManager em;
 
     public RadusergroupBroker() {
         em = Persistence.createEntityManagerFactory("RadiusAdminHibernate").createEntityManager();
     }
-
 
 
     @Override
@@ -39,7 +37,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
     public List<Radusergroup> getAllPersonsInGroup(String groupname) {
         em.getTransaction().begin();
         List<Radusergroup> radusergroup = null;
-        System.out.println("Wybrana Grupa :"+groupname);
+        System.out.println("Wybrana Grupa :" + groupname);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radusergroup> cq = cb.createQuery(Radusergroup.class);
         Root<Radusergroup> root = cq.from(Radusergroup.class);
@@ -47,10 +45,10 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         Predicate condition = cb.equal(root.get("groupName"), groupname);
 
         TypedQuery<Radusergroup> query = em.createQuery(cq.select(root).where(condition));
-       radusergroup = query.getResultList();
+        radusergroup = query.getResultList();
         em.getTransaction().commit();
-              return radusergroup;
-}
+        return radusergroup;
+    }
 
     @Override
     public Radusergroup getPersonById(int id) {
@@ -61,8 +59,9 @@ public class RadusergroupBroker implements IRadusergroupBroker {
     public Radusergroup getPersonByEmail(String email) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     @Override
-    public String getGroupbyVlan(String  VlanGroupName) {
+    public String getGroupbyVlan(String VlanGroupName) {
         em.getTransaction().begin();
         Radusergroup radgroupreply = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -88,8 +87,9 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         }
 
     }
+
     @Override
-    public Radusergroup getUserNameToGroup(String  username) {
+    public Radusergroup getUserNameToGroup(String username) {
         em.getTransaction().begin();
         Radusergroup radusergroup = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -101,7 +101,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         cq.distinct(true);
         TypedQuery<Radusergroup> query = em.createQuery(cq);
         em.getTransaction().commit();
-     //   System.out.println("Dla : "+username);
+        //   System.out.println("Dla : "+username);
         //  radgroupreply = query.getSingleResult();
         try {
 
@@ -112,8 +112,8 @@ public class RadusergroupBroker implements IRadusergroupBroker {
             System.out.println(nre.getMessage());
 
             List<Radusergroup> radlist = query.getResultList();
-            for(Radusergroup rg : radlist){
-                System.out.println("Zdublowany MACAddress: "+rg.getUserName());
+            for (Radusergroup rg : radlist) {
+                System.out.println("Zdublowany MACAddress: " + rg.getUserName());
             }
 
         }
@@ -128,5 +128,5 @@ public class RadusergroupBroker implements IRadusergroupBroker {
 
     }
 
-   // }
+    // }
 }

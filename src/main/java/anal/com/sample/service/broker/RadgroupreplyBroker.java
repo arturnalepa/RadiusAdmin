@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+
 @Repository
 @Transactional
 public class RadgroupreplyBroker implements IRadgroupreplyBroker {
@@ -35,6 +36,7 @@ public class RadgroupreplyBroker implements IRadgroupreplyBroker {
     public List<Radgroupreply> getAllPersons() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     @Override
     public List<Radgroupreply> getAllVlan() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -45,11 +47,12 @@ public class RadgroupreplyBroker implements IRadgroupreplyBroker {
         cq.orderBy(cb.asc(root.get("value")));
         cq.distinct(true);
         TypedQuery<Radgroupreply> query = em.createQuery(cq);
-       List<Radgroupreply> vlan = query.getResultList();
+        List<Radgroupreply> vlan = query.getResultList();
 
-return vlan;
-     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return vlan;
+        //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     @Override
     public Radgroupreply getPersonById() {
 
@@ -77,12 +80,12 @@ return vlan;
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radgroupreply) query.getSingleResult();
-      //      System.out.println("W grupie: " + radgroupreply.getGroupName());
+            //      System.out.println("W grupie: " + radgroupreply.getGroupName());
         } catch (NoResultException nre) {
         }
         if (radgroupreply == null) {
-       //     System.out.println("W grupie: " + radgroupreply);
-           return null;
+            //     System.out.println("W grupie: " + radgroupreply);
+            return null;
 
         } else {
             return radgroupreply;
@@ -98,7 +101,7 @@ return vlan;
         Root<Radgroupreply> root = cq.from(Radgroupreply.class);
         Predicate condition1 = cb.equal(root.get("groupName"), gropuname);
         Predicate condition2 = cb.equal(root.get("attribute"), "Tunnel-Private-Group-ID");
-        Predicate condition = cb.and (( condition1 ),( condition2 ));
+        Predicate condition = cb.and((condition1), (condition2));
         cq.where(condition);
         cq.orderBy(cb.asc(root.get("value")));
         cq.distinct(true);
@@ -107,15 +110,15 @@ return vlan;
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radgroupreply) query.getSingleResult();
-     //       System.out.println("W Vlanie: " + radgroupreply.getValue());
+            //       System.out.println("W Vlanie: " + radgroupreply.getValue());
         } catch (NoResultException nre) {
 
         }
         if (radgroupreply == null) {
-         //   System.out.println("W grupie: " + radgroupreply);
+            //   System.out.println("W grupie: " + radgroupreply);
             Radgroupreply rep = new Radgroupreply();
             rep.setValue("0");
-            return rep ;
+            return rep;
         } else {
             return radgroupreply;
         }

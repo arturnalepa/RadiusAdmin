@@ -3,11 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="109.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.AddVlan">
+<AnchorPane prefHeight="109.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.AddVlan">
     <children>
-        <TextField fx:id="vlanname" layoutX="14.0" layoutY="14.0" promptText="Vlan Name" />
-        <TextField fx:id="vlannumber" layoutX="236.0" layoutY="14.0" promptText="Vlan number" />
-        <Button fx:id="AddVlan" layoutX="104.0" layoutY="70.0" mnemonicParsing="false" onAction="#VlanAdd" prefHeight="25.0" prefWidth="191.0" text="Add Vlan" />
+        <TextField fx:id="vlanname" layoutX="14.0" layoutY="14.0" promptText="Vlan Name"/>
+        <TextField fx:id="vlannumber" layoutX="236.0" layoutY="14.0" promptText="Vlan number"/>
+        <Button fx:id="AddVlan" layoutX="104.0" layoutY="70.0" mnemonicParsing="false" onAction="#VlanAdd"
+                prefHeight="25.0" prefWidth="191.0" text="Add Vlan"/>
     </children>
 </AnchorPane>

@@ -1,10 +1,10 @@
 package anal.com.sample.main;
 
 import anal.com.sample.model.Nas;
-import anal.com.sample.model.Radcheck;
 import anal.com.sample.repository.service.INasService;
 import anal.com.sample.service.service.NasService;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,12 +12,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
-import javafx.util.converter.DefaultStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 import javax.swing.*;
@@ -62,30 +58,31 @@ public class AddNas implements Initializable {
     private TableView<Nas> nastable;
 
     @FXML
-    private TableColumn<Nas,String> tabnas_c1;
+    private TableColumn<Nas, String> tabnas_c1;
 
     @FXML
-    private TableColumn<Nas,String> tabnas_c2;
+    private TableColumn<Nas, String> tabnas_c2;
 
     @FXML
-    private TableColumn<Nas,String> tabnas_c3;
+    private TableColumn<Nas, String> tabnas_c3;
 
     @FXML
-    private TableColumn<Nas,Integer> tabnas_c4;
+    private TableColumn<Nas, Integer> tabnas_c4;
 
     @FXML
-    private TableColumn<Nas,String> tabnas_c5;
+    private TableColumn<Nas, String> tabnas_c5;
 
     @FXML
-    private TableColumn<Nas,String> tabnas_c6;
+    private TableColumn<Nas, String> tabnas_c6;
 
     @FXML
-    private TableColumn<Nas,String> tabnas_c7;
+    private TableColumn<Nas, String> tabnas_c7;
     private ObservableList<Nas> nasTableData = FXCollections.observableArrayList();
     private INasService serviceNas;
     Nas nas = new Nas();
     Nas tablenas = new Nas();
-   @FXML
+
+    @FXML
     void AddNas(ActionEvent event) {
         int port;
         Nas nas = new Nas();
@@ -111,13 +108,14 @@ public class AddNas implements Initializable {
                 initializeColumns();
                 ClearjTextField();
             } else {
-                JOptionPane.showMessageDialog(null, "Pole secret nie mo¿e byæ puste ", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Pole secret nie moï¿½e byï¿½ puste ", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "SprawdŸ poprawnoœæ adresu IP !! ", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Sprawdï¿½ poprawnoï¿½ï¿½ adresu IP !! ", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
+
     private void ClearjTextField() {
         nascomunity.clear();
         nasdescription.clear();
@@ -128,16 +126,19 @@ public class AddNas implements Initializable {
         ipoctet3.clear();
         ipoctet4.clear();
     }
+
     public ObservableList<Nas> getNasData() {
         return nasTableData;
     }
+
     @FXML
     void MAx3char() {
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-      //  serviceNas = new NasService();
+        //  serviceNas = new NasService();
         serviceNas = new NasService();
         nasport.setText("1812");
         initualizeIPValidator();
@@ -209,17 +210,18 @@ public class AddNas implements Initializable {
             }
         });
     }
+
     private void initializeColumns() {
 
-        TableColumn<Nas, String> colNASIP  = new TableColumn<Nas, String>("NAS IP/Host");
-        TableColumn<Nas, String> colNASShortname   = new TableColumn<Nas, String>("NAS Shortname");
-        TableColumn<Nas, String> colNASType   = new TableColumn<Nas, String>("NAS Type");
-        TableColumn<Nas, Integer> colNASPorts  = new TableColumn<Nas, Integer>("NAS Ports");
-        TableColumn<Nas, String> colNASSecret   = new TableColumn<Nas, String>("NAS Secret");
-        TableColumn<Nas, String> colNASCommunity   = new TableColumn<Nas, String>("NAS Community");
-        TableColumn<Nas, String> colNASDescription    = new TableColumn<Nas, String>("NAS Description ");
+        TableColumn<Nas, String> colNASIP = new TableColumn<Nas, String>("NAS IP/Host");
+        TableColumn<Nas, String> colNASShortname = new TableColumn<Nas, String>("NAS Shortname");
+        TableColumn<Nas, String> colNASType = new TableColumn<Nas, String>("NAS Type");
+        TableColumn<Nas, Integer> colNASPorts = new TableColumn<Nas, Integer>("NAS Ports");
+        TableColumn<Nas, String> colNASSecret = new TableColumn<Nas, String>("NAS Secret");
+        TableColumn<Nas, String> colNASCommunity = new TableColumn<Nas, String>("NAS Community");
+        TableColumn<Nas, String> colNASDescription = new TableColumn<Nas, String>("NAS Description ");
 
-        nastable.getColumns().setAll(colNASIP,colNASShortname,colNASType,colNASPorts,colNASSecret,colNASCommunity,colNASDescription);
+        nastable.getColumns().setAll(colNASIP, colNASShortname, colNASType, colNASPorts, colNASSecret, colNASCommunity, colNASDescription);
 
         colNASIP.setCellValueFactory(new PropertyValueFactory<Nas, String>("nasname"));
         colNASShortname.setCellValueFactory(new PropertyValueFactory<Nas, String>("shortname"));
@@ -238,14 +240,10 @@ public class AddNas implements Initializable {
         colNASCommunity.setCellFactory(TextFieldTableCell.forTableColumn());
 
 
-
-
-
-
         colNASIP.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, String>>() {
             public void handle(TableColumn.CellEditEvent<Nas, String> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setNasname(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -254,7 +252,7 @@ public class AddNas implements Initializable {
         colNASShortname.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, String>>() {
             public void handle(TableColumn.CellEditEvent<Nas, String> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setShortname(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -262,7 +260,7 @@ public class AddNas implements Initializable {
         colNASType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, String>>() {
             public void handle(TableColumn.CellEditEvent<Nas, String> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setType(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -270,7 +268,7 @@ public class AddNas implements Initializable {
         colNASPorts.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, Integer>>() {
             public void handle(TableColumn.CellEditEvent<Nas, Integer> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setPorts(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -278,7 +276,7 @@ public class AddNas implements Initializable {
         colNASSecret.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, String>>() {
             public void handle(TableColumn.CellEditEvent<Nas, String> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setSecret(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -286,7 +284,7 @@ public class AddNas implements Initializable {
         colNASDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, String>>() {
             public void handle(TableColumn.CellEditEvent<Nas, String> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setDescription(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -294,7 +292,7 @@ public class AddNas implements Initializable {
         colNASCommunity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Nas, String>>() {
             public void handle(TableColumn.CellEditEvent<Nas, String> event) {
                 Nas nasselecy = new Nas();
-                nasselecy=  serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
+                nasselecy = serviceNas.getNasByNasname(nastable.getSelectionModel().getSelectedItem().getNasname());
                 nasselecy.setCommunity(event.getNewValue());
                 serviceNas.saveOrUpdate(nasselecy);
             }
@@ -308,7 +306,7 @@ public class AddNas implements Initializable {
         nastable.setEditable(true);
 
 
-}
+    }
 
 }
 

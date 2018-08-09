@@ -19,8 +19,6 @@ public class RadgroupcheckBroker implements IRadgroupcheckBroker {
     }
 
 
-
-
     @Override
     public void saveOrUpdate(Radgroupcheck_old person) {
         em.getTransaction().begin();
@@ -39,8 +37,8 @@ public class RadgroupcheckBroker implements IRadgroupcheckBroker {
 //        cq.distinct(true);
 //        TypedQuery<Nas> query = em.createQuery(cq);
 //       List<Nas> nas = query.getResultList();
-      return null;
-}
+        return null;
+    }
 
     @Override
     public Radgroupcheck_old getGroupByVlanId(int id) {
@@ -55,8 +53,8 @@ public class RadgroupcheckBroker implements IRadgroupcheckBroker {
 //        TypedQuery<Radcheck> query = em.createQuery(cq);
 //        List<Radcheck> radcheck = query.getResultList();
 
-return null;
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

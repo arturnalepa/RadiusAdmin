@@ -38,16 +38,19 @@ public class RadusergroupService implements IRadusergroupService {
     public Radusergroup testowa() {
         return null;
     }
+
     @Override
     public Radusergroup testowa2() {
         return null;
     }
+
     @Override
     public String getGroupbyVlan(String VlanGroupName) {
         return broker.getGroupbyVlan(VlanGroupName);
     }
+
     @Override
-    public Radusergroup getUserNameToGroup(String username){
+    public Radusergroup getUserNameToGroup(String username) {
         return broker.getUserNameToGroup(username);
     }
 }

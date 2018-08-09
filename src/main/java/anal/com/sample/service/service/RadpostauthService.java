@@ -36,6 +36,7 @@ public class RadpostauthService implements IRadpostauthService {
     public Radpostauth_log testowa() {
         return null;
     }
+
     @Override
     public Radpostauth_log testowa2() {
         return null;

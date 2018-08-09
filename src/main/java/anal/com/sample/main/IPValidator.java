@@ -13,16 +13,17 @@ public class IPValidator {
                     "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     boolean validateIP(String ipStr) {
-        boolean valid =false;
+        boolean valid = false;
         return Pattern.matches(IPADDRESS_PATTERN, ipStr);
     }
+
     boolean validateIPOctets(String ipStr) {
-        boolean validoc =false;
+        boolean validoc = false;
         String regex = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])";
-       return Pattern.matches(regex, ipStr);
+        return Pattern.matches(regex, ipStr);
     }
 
-    public IPValidator(){
+    public IPValidator() {
         pattern = Pattern.compile(IPADDRESS_PATTERN);
     }
 }

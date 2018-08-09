@@ -11,15 +11,14 @@ import java.security.Timestamp;
 
 /**
  * The persistent class for the radpostauth database table.
- *
  */
 @Entity
-@NamedQuery(name="Radpostauth.findAll", query="SELECT r FROM Radpostauth r")
+@NamedQuery(name = "Radpostauth.findAll", query = "SELECT r FROM Radpostauth r")
 public class Radpostauth implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private Timestamp authdate;

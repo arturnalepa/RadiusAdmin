@@ -1,9 +1,7 @@
 package anal.com.sample.service.broker;
 
 import anal.com.sample.model.Userbillinfo;
-import anal.com.sample.model.Userinfo;
 import anal.com.sample.repository.broker.IUserbillinfoBroker;
-import anal.com.sample.repository.broker.IUserinfoBroker;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,17 +24,17 @@ public class UserbillinfoBroker implements IUserbillinfoBroker {
     }
 
 
-
     @Override
     public void saveOrUpdate(Userbillinfo userinfo) {
         em.getTransaction().begin();
         em.merge(userinfo);
         em.getTransaction().commit();
     }
+
     @Override
-    public Userbillinfo findUserInfo(String colmacaddress){
+    public Userbillinfo findUserInfo(String colmacaddress) {
         em.getTransaction().begin();
-        Userbillinfo userinfo=null;
+        Userbillinfo userinfo = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Userbillinfo> cq = cb.createQuery(Userbillinfo.class);
         Root<Userbillinfo> root = cq.from(Userbillinfo.class);
@@ -51,11 +49,11 @@ public class UserbillinfoBroker implements IUserbillinfoBroker {
             userinfo = query.getSingleResult();
             //      System.out.println("W grupie: " + radgroupreply.getGroupName());
         } catch (NoResultException nre) {
-          //  userinfo.setFirstname("");
+            //  userinfo.setFirstname("");
         }
         if (userinfo == null) {
             //     System.out.println("W grupie: " + radgroupreply);
-      //      userinfo.setFirstname("a");
+            //      userinfo.setFirstname("a");
             return userinfo;
         } else {
             return userinfo;

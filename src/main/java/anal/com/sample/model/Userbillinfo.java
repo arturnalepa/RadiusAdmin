@@ -1,16 +1,15 @@
 package anal.com.sample.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
 /**
  * The persistent class for the userbillinfo database table.
- *
  */
 @Entity
-@NamedQuery(name="Userbillinfo.findAll", query="SELECT u FROM Userbillinfo u")
+@NamedQuery(name = "Userbillinfo.findAll", query = "SELECT u FROM Userbillinfo u")
 public class Userbillinfo implements Serializable {
     private static final long serialVersionUID = 1L;
 

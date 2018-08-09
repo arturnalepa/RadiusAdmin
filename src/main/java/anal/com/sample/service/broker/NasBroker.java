@@ -2,7 +2,6 @@ package anal.com.sample.service.broker;
 
 import anal.com.sample.model.Nas;
 import anal.com.sample.repository.broker.INasBroker;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,10 +35,10 @@ public class NasBroker implements INasBroker {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Nas> cq = cb.createQuery(Nas.class);
         Root<Nas> root = cq.from(Nas.class);
-      //  Predicate condition = cb.equal(root.get("Attribute"), "Tunnel-Private-Group-ID");
-      //  cq.where(condition);
+        //  Predicate condition = cb.equal(root.get("Attribute"), "Tunnel-Private-Group-ID");
+        //  cq.where(condition);
         cq.orderBy(cb.asc(root.get("nasname")));
-    //    cq.distinct(true);
+        //    cq.distinct(true);
         TypedQuery<Nas> query = em.createQuery(cq);
         List<Nas> nas = query.getResultList();
 
@@ -49,8 +48,8 @@ public class NasBroker implements INasBroker {
 //
 //        }
 
-      return nas;
-}
+        return nas;
+    }
 
     @Override
     public Nas getNasByNasname(String nasName) {
@@ -65,10 +64,9 @@ public class NasBroker implements INasBroker {
         TypedQuery<Nas> query = em.createQuery(cq);
         Nas nas = query.getSingleResult();
 
-return nas;
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nas;
+        //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
 
 }

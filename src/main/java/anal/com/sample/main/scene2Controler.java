@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
 import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class scene2Controler {
     @FXML
     private TableColumn<UserTableData, String> colnotes;
 
+    @FXML
+    private TextField find;
     @FXML
     private Label firstname;
 
@@ -146,6 +149,28 @@ public class scene2Controler {
                 return false;
             });
         });
+        find.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(myObject -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (String.valueOf(myObject.getColmacaddress()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+
+                } else if (String.valueOf(myObject.getColmacpassword()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(myObject.getColnotes()).toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                } else if (String.valueOf(myObject.getColname()).toLowerCase().contains(lowerCaseFilter)){
+                return true;
+            }
+                return false;
+            });
+        });
+
 
         SortedList<UserTableData> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(personTable.comparatorProperty());
@@ -265,7 +290,7 @@ public class scene2Controler {
             }
         } else {
             System.out.println("eeeee");
-            LMaCAddress.setText("b³¹d");
+            LMaCAddress.setText("bï¿½ï¿½d");
         }
     }
 

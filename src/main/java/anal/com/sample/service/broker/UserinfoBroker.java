@@ -1,9 +1,7 @@
 package anal.com.sample.service.broker;
 
-import anal.com.sample.model.Radusergroup;
 import anal.com.sample.model.Userinfo;
 import anal.com.sample.repository.broker.IUserinfoBroker;
-import anal.com.sample.repository.service.IUserinfoService;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,17 +24,17 @@ public class UserinfoBroker implements IUserinfoBroker {
     }
 
 
-
     @Override
     public void saveOrUpdate(Userinfo userinfo) {
         em.getTransaction().begin();
         em.merge(userinfo);
         em.getTransaction().commit();
     }
+
     @Override
-    public Userinfo findUserInfo(String colmacaddress){
+    public Userinfo findUserInfo(String colmacaddress) {
         em.getTransaction().begin();
-        Userinfo userinfo=null;
+        Userinfo userinfo = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Userinfo> cq = cb.createQuery(Userinfo.class);
         Root<Userinfo> root = cq.from(Userinfo.class);

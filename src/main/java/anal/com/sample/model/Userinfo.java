@@ -9,16 +9,15 @@ import java.util.Date;
 
 /**
  * The persistent class for the userinfo database table.
- *
  */
 @Entity
-@NamedQuery(name="Userinfo.findAll", query="SELECT u FROM Userinfo u")
+@NamedQuery(name = "Userinfo.findAll", query = "SELECT u FROM Userinfo u")
 @Table(name = "userinfo")
 public class Userinfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String address;

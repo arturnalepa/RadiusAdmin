@@ -20,8 +20,8 @@ public class RadacctService implements IRadacctService {
     }
 
     @Override
-    public List<Radacct>  getAllVlan() {
-         return broker.getAllVlan();
+    public List<Radacct> getAllVlan() {
+        return broker.getAllVlan();
     }
 
 //    @Override
@@ -38,12 +38,14 @@ public class RadacctService implements IRadacctService {
     public Radacct testowa() {
         return null;
     }
+
     @Override
     public Radacct testowa2() {
         return null;
     }
 
-    public Radacct getGroupByVlanId(int id) {return  broker.getGroupByVlanId(id);
+    public Radacct getGroupByVlanId(int id) {
+        return broker.getGroupByVlanId(id);
     }
 
 }

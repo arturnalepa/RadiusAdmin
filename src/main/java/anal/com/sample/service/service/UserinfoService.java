@@ -18,5 +18,7 @@ public class UserinfoService implements IUserinfoService {
     }
 
     @Override
-    public Userinfo findUserInfo (String colmacaddress) { return broker.findUserInfo(colmacaddress);  }
+    public Userinfo findUserInfo(String colmacaddress) {
+        return broker.findUserInfo(colmacaddress);
+    }
 }

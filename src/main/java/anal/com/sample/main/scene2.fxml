@@ -1,191 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="691.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.scene2Controler">
+<AnchorPane prefHeight="846.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.scene2Controler">
     <children>
-        <Pane layoutX="-1.0" prefHeight="693.0" prefWidth="712.0">
+      <Pane layoutY="726.0" prefHeight="71.0" prefWidth="1202.0" />
+      <HBox layoutX="6.0" prefHeight="805.0" prefWidth="1190.0">
          <children>
-            <TableView fx:id="personTable" editable="true" layoutX="7.0" layoutY="133.0" onMouseClicked="#RightContextMenu" prefHeight="548.0" prefWidth="701.0" tableMenuButtonVisible="true">
-              <columns>
-                  <TableColumn fx:id="colname" prefWidth="75.0" text="cname" />
-                <TableColumn fx:id="colmacaddress" prefWidth="75.0" text="C1" />
-                <TableColumn fx:id="colmacpassword" prefWidth="75.0" text="C2" />
-                 <TableColumn fx:id="colvlan" prefWidth="75.0" text="C2" />
-                  <TableColumn fx:id="colnotes" prefWidth="75.0" text="colnotes" />
-
-              </columns>
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                      <MenuItem fx:id="Edit" mnemonicParsing="false" onAction="#Edytuj" text="Edytuj" />
-                        <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
-            </TableView>
-            <TextField fx:id="MacAddress" layoutX="14.0" layoutY="61.0" onKeyPressed="#insertValue" promptText="MacAddress" />
-            <TextField fx:id="MacPassword" layoutX="14.0" layoutY="100.0" promptText="MacPassword" />
-            <ComboBox fx:id="VlanGroup" layoutX="198.0" layoutY="61.0" onAction="#getSelectedVlan" prefWidth="150.0" promptText="Vlan" />
-            <CheckBox fx:id="checkMacPass" layoutX="24.0" layoutY="28.0" mnemonicParsing="false" onAction="#status" text="MacAddress=Password" />
-            <Label fx:id="LMaCAddress" layoutX="163.0" layoutY="65.0" text="" />
-            <Button fx:id="AddClient" layoutX="198.0" layoutY="100.0" mnemonicParsing="false" onAction="#DodajHosta" prefHeight="25.0" prefWidth="150.0" text="Add" />
-            <Button fx:id="addNas" layoutX="517.0" layoutY="61.0" mnemonicParsing="false" onAction="#DodajNas" text="AddNas" />
-            <Button fx:id="addVlan" layoutX="448.0" layoutY="61.0" mnemonicParsing="false" onAction="#DodajVlan" text="Add Vlan" />
-         </children>
-        </Pane>
-      <Pane layoutX="711.0" layoutY="4.0" prefHeight="212.0" prefWidth="487.0">
-         <children>
-            <HBox layoutX="36.0" layoutY="10.0" prefHeight="199.0" prefWidth="415.0">
-               <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="596.0" prefWidth="92.0">
+              <Pane prefHeight="805.0" prefWidth="715.0">
+                  <children>
+                  <VBox layoutY="5.0" prefHeight="793.0" prefWidth="712.0">
                      <children>
-                        <Label text="User name :">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <Label text="First name:">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Notes :">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Creation Date :">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Creation by:">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Update Date:">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Update by:">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                     </children></VBox>
-                  <VBox prefHeight="199.0" prefWidth="312.0">
-                     <children>
-                        <Label fx:id="username" text="User name :">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="firstname" text="First name:">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="notes" prefHeight="27.0" prefWidth="299.0" text="Notes :">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="creationdate" text="Creation Date :">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="creationby" text="Creation by:">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="updatedate" text="Update Date:">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="updateby" text="Update by:">
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Label>
+                        <Pane prefHeight="127.0" prefWidth="712.0">
+                           <children>
+                                  <TextField fx:id="MacAddress" layoutX="14.0" layoutY="44.0" onKeyPressed="#insertValue" promptText="MacAddress" />
+                                  <TextField fx:id="MacPassword" layoutX="14.0" layoutY="76.0" promptText="MacPassword" />
+                                  <CheckBox fx:id="checkMacPass" layoutX="16.0" layoutY="17.0" mnemonicParsing="false" onAction="#status" text="MacAddress=Password" />
+                                  <Label fx:id="LMaCAddress" text="" />
+                                  <Button fx:id="AddClient" layoutX="200.0" layoutY="44.0" mnemonicParsing="false" onAction="#DodajHosta" prefHeight="25.0" prefWidth="150.0" text="Add" />
+                                  <Button fx:id="addNas" layoutX="630.0" layoutY="89.0" mnemonicParsing="false" onAction="#DodajNas" prefHeight="25.0" prefWidth="64.0" text="AddNas" />
+                                  <Button fx:id="addVlan" layoutX="630.0" layoutY="44.0" mnemonicParsing="false" onAction="#DodajVlan" text="Add Vlan" />
+                                  <ComboBox fx:id="VlanGroup" layoutX="419.0" layoutY="44.0" onAction="#getSelectedVlan" prefWidth="150.0" promptText="Vlan" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="41.0" prefWidth="712.0">
+                           <children>
+                              <TextField fx:id="find" layoutX="73.0" layoutY="11.0" prefHeight="25.0" prefWidth="546.0" promptText="Search" />
+                           </children>
+                        </Pane>
+                            <TableView fx:id="personTable" editable="true" onMouseClicked="#RightContextMenu" prefHeight="596.0" prefWidth="712.0" tableMenuButtonVisible="true">
+                                <columns>
+                                    <TableColumn fx:id="colname" prefWidth="75.0" text="cname" />
+                                    <TableColumn fx:id="colmacaddress" prefWidth="75.0" text="C1" />
+                                    <TableColumn fx:id="colmacpassword" prefWidth="75.0" text="C2" />
+                                    <TableColumn fx:id="colvlan" prefWidth="75.0" text="C2" />
+                                    <TableColumn fx:id="colnotes" prefWidth="75.0" text="colnotes" />
+            
+                                </columns>
+                                <contextMenu>
+                                    <ContextMenu>
+                                        <items>
+                                            <MenuItem fx:id="Edit" mnemonicParsing="false" onAction="#Edytuj" text="Edytuj" />
+                                            <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                        </items>
+                                    </ContextMenu>
+                                </contextMenu>
+                            </TableView>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets></VBox>
-               </children>
-            </HBox>
-         </children></Pane>
-      <Pane layoutX="708.0" layoutY="216.0" prefHeight="469.0" prefWidth="487.0">
-         <children>
-            <TableView layoutX="-2.0" layoutY="2.0" prefHeight="469.0" prefWidth="487.0">
-              <columns>
-                  <TableColumn prefWidth="75.0" text="Column X" />
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-                  <TableColumn prefWidth="75.0" text="Column X" />
-              </columns>
-            </TableView>
+                  </VBox>
+                  </children>
+              </Pane>
+              <Pane prefHeight="212.0" prefWidth="487.0">
+                  <children>
+                      <HBox layoutX="36.0" layoutY="10.0" prefHeight="199.0" prefWidth="415.0">
+                          <children>
+                              <VBox alignment="TOP_RIGHT" prefHeight="596.0" prefWidth="92.0">
+                                  <children>
+                                      <Label text="User name :">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                      <Label text="First name:">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                      <Label text="Notes :">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                      <Label text="Creation Date :">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                      <Label text="Creation by:">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                      <Label text="Update Date:">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                      <Label text="Update by:">
+                                          <VBox.margin>
+                                              <Insets />
+                                          </VBox.margin>
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                      </Label>
+                                  </children>
+                              </VBox>
+                              <VBox prefHeight="199.0" prefWidth="312.0">
+                                  <children>
+                                      <Label fx:id="username" text="User name :">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                      <Label fx:id="firstname" text="First name:">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                      <Label fx:id="notes" prefHeight="27.0" prefWidth="299.0" text="Notes :">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                      <Label fx:id="creationdate" text="Creation Date :">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                      <Label fx:id="creationby" text="Creation by:">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                      <Label fx:id="updatedate" text="Update Date:">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                      <Label fx:id="updateby" text="Update by:">
+                                          <padding>
+                                              <Insets bottom="10.0" />
+                                          </padding>
+                                          <VBox.margin>
+                                              <Insets left="10.0" />
+                                          </VBox.margin>
+                                      </Label>
+                                  </children>
+                                  <opaqueInsets>
+                                      <Insets />
+                                  </opaqueInsets>
+                              </VBox>
+                          </children>
+                      </HBox>
+                  <VBox layoutY="226.0" prefHeight="411.0" prefWidth="487.0">
+                     <children>
+                          <Pane prefHeight="566.0" prefWidth="487.0">
+                              <children>
+                                  <TableView layoutX="4.0" layoutY="2.0" prefHeight="572.0" prefWidth="481.0">
+                                      <columns>
+                                          <TableColumn prefWidth="75.0" text="Column X" />
+                                          <TableColumn prefWidth="75.0" text="C1" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                          <TableColumn prefWidth="75.0" text="Column X" />
+                                      </columns>
+                                  </TableView>
+                              </children>
+                          </Pane>
+                     </children>
+                  </VBox>
+                  </children>
+              </Pane>
          </children>
-      </Pane>
+      </HBox>
+      <Pane layoutX="14.0" layoutY="805.0" prefHeight="34.0" prefWidth="703.0" />
     </children>
 </AnchorPane>
