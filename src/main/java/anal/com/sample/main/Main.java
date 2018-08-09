@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -41,12 +43,15 @@ public class Main extends Application {
 //            e.printStackTrace();
 //        }
         try {
+
             root = FXMLLoader.load(getClass().getResource("scene2.fxml"));
+
          //   Scene scene = new Scene(root, 300, 275);
             Scene scene = new Scene(root);
-            stage.setTitle("FXML Welcome");
+             stage.setTitle("FXML Welcome");
             stage.setScene(scene);
             stage.show();
+
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -54,6 +59,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
+
         launch(args);
         SpringApplication.run(Main.class, args);
 
