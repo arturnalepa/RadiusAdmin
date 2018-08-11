@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="846.0" prefWidth="1202.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.scene2Controler">
+<AnchorPane prefHeight="662.0" prefWidth="1328.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anal.com.sample.main.scene2Controler">
     <children>
-      <Pane layoutY="726.0" prefHeight="71.0" prefWidth="1202.0" />
-      <HBox layoutX="6.0" prefHeight="805.0" prefWidth="1190.0">
+      <HBox layoutX="325.0" layoutY="14.0" prefHeight="440.0" prefWidth="1025.0">
          <children>
-              <Pane prefHeight="805.0" prefWidth="715.0">
+              <Pane prefHeight="440.0" prefWidth="651.0">
                   <children>
-                  <VBox layoutY="5.0" prefHeight="793.0" prefWidth="712.0">
+                  <VBox layoutX="-188.0" layoutY="-8.0" prefHeight="631.0" prefWidth="836.0">
                      <children>
-                        <Pane prefHeight="127.0" prefWidth="712.0">
-                           <children>
-                                  <TextField fx:id="MacAddress" layoutX="14.0" layoutY="44.0" onKeyPressed="#insertValue" promptText="MacAddress" />
-                                  <TextField fx:id="MacPassword" layoutX="14.0" layoutY="76.0" promptText="MacPassword" />
-                                  <CheckBox fx:id="checkMacPass" layoutX="16.0" layoutY="17.0" mnemonicParsing="false" onAction="#status" text="MacAddress=Password" />
-                                  <Label fx:id="LMaCAddress" text="" />
-                                  <Button fx:id="AddClient" layoutX="200.0" layoutY="44.0" mnemonicParsing="false" onAction="#DodajHosta" prefHeight="25.0" prefWidth="150.0" text="Add" />
-                                  <Button fx:id="addNas" layoutX="630.0" layoutY="89.0" mnemonicParsing="false" onAction="#DodajNas" prefHeight="25.0" prefWidth="64.0" text="AddNas" />
-                                  <Button fx:id="addVlan" layoutX="630.0" layoutY="44.0" mnemonicParsing="false" onAction="#DodajVlan" text="Add Vlan" />
-                                  <ComboBox fx:id="VlanGroup" layoutX="419.0" layoutY="44.0" onAction="#getSelectedVlan" prefWidth="150.0" promptText="Vlan" />
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="41.0" prefWidth="712.0">
-                           <children>
-                              <TextField fx:id="find" layoutX="73.0" layoutY="11.0" prefHeight="25.0" prefWidth="546.0" promptText="Search" />
-                           </children>
-                        </Pane>
-                            <TableView fx:id="personTable" editable="true" onMouseClicked="#RightContextMenu" prefHeight="596.0" prefWidth="712.0" tableMenuButtonVisible="true">
+                            <TableView fx:id="personTable" editable="true" onMouseClicked="#RightContextMenu" prefHeight="242.0" prefWidth="846.0" tableMenuButtonVisible="true">
                                 <columns>
                                     <TableColumn fx:id="colname" prefWidth="75.0" text="cname" />
                                     <TableColumn fx:id="colmacaddress" prefWidth="75.0" text="C1" />
@@ -39,7 +32,7 @@
                                     <TableColumn fx:id="colvlan" prefWidth="75.0" text="C2" />
                                     <TableColumn fx:id="colnotes" prefWidth="75.0" text="colnotes" />
             
-                                </columns>
+                                            </columns>
                                 <contextMenu>
                                     <ContextMenu>
                                         <items>
@@ -49,13 +42,44 @@
                                     </ContextMenu>
                                 </contextMenu>
                             </TableView>
+                        <Pane prefHeight="271.0" prefWidth="836.0">
+                           <children>
+                              <TextField fx:id="find" layoutX="164.0" layoutY="2.0" prefHeight="25.0" prefWidth="672.0" promptText="Search" />
+                                  <ComboBox fx:id="VlanGroup" layoutY="2.0" onAction="#getSelectedVlan" prefWidth="150.0" promptText="Vlan" />
+                                <Pane layoutX="369.0" layoutY="46.0" prefHeight="245.0" prefWidth="836.0">
+                                    <children>
+                                        <TableView fx:id="TableRadacct" prefHeight="245.0" prefWidth="836.0">
+                                            <columns>
+                                                <TableColumn fx:id="framedipaddress" prefWidth="126.0" text="framedipaddress" />
+                                                <TableColumn fx:id="nasip" prefWidth="68.0" text="nasip" />
+                                          <TableColumn fx:id="nasport" prefWidth="75.0" text="nasport" />
+                                                <TableColumn fx:id="acctstarttime" prefWidth="92.0" text="acctstarttime" />
+                                                <TableColumn fx:id="acctstoptime" prefWidth="164.0" text="acctstoptime" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </Pane>
+                              <DatePicker fx:id="startdate" layoutX="143.0" layoutY="58.0" />
+                              <DatePicker fx:id="enddate" layoutX="136.0" layoutY="107.0" />
+                              <Button fx:id="allRadacct" layoutX="310.0" layoutY="169.0" mnemonicParsing="false" onAction="#AllRadacct" text="Button" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="119.0" prefWidth="836.0">
+                           <children>
+                                  <TextField fx:id="MacAddress" layoutX="14.0" layoutY="44.0" onKeyPressed="#insertValue" promptText="MacAddress" />
+                                  <TextField fx:id="MacPassword" layoutX="14.0" layoutY="76.0" promptText="MacPassword" />
+                                  <CheckBox fx:id="checkMacPass" layoutX="16.0" layoutY="17.0" mnemonicParsing="false" onAction="#status" text="MacAddress=Password" />
+                                  <Label fx:id="LMaCAddress" text="" />
+                                  <Button fx:id="AddClient" layoutX="200.0" layoutY="44.0" mnemonicParsing="false" onAction="#DodajHosta" prefHeight="25.0" prefWidth="150.0" text="Add" />
+                           </children>
+                        </Pane>
                      </children>
                   </VBox>
                   </children>
               </Pane>
-              <Pane prefHeight="212.0" prefWidth="487.0">
+              <Pane prefHeight="440.0" prefWidth="366.0">
                   <children>
-                      <HBox layoutX="36.0" layoutY="10.0" prefHeight="199.0" prefWidth="415.0">
+                      <HBox layoutX="36.0" layoutY="10.0" prefHeight="199.0" prefWidth="258.0">
                           <children>
                               <VBox alignment="TOP_RIGHT" prefHeight="596.0" prefWidth="92.0">
                                   <children>
@@ -117,7 +141,7 @@
                                       </Label>
                                   </children>
                               </VBox>
-                              <VBox prefHeight="199.0" prefWidth="312.0">
+                              <VBox prefHeight="199.0" prefWidth="169.0">
                                   <children>
                                       <Label fx:id="username" text="User name :">
                                           <padding>
@@ -182,26 +206,29 @@
                               </VBox>
                           </children>
                       </HBox>
-                  <VBox layoutY="226.0" prefHeight="411.0" prefWidth="487.0">
-                     <children>
-                          <Pane prefHeight="566.0" prefWidth="487.0">
-                              <children>
-                                  <TableView layoutX="4.0" layoutY="2.0" prefHeight="572.0" prefWidth="481.0">
-                                      <columns>
-                                          <TableColumn prefWidth="75.0" text="Column X" />
-                                          <TableColumn prefWidth="75.0" text="C1" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
-                                          <TableColumn prefWidth="75.0" text="Column X" />
-                                      </columns>
-                                  </TableView>
-                              </children>
-                          </Pane>
-                     </children>
-                  </VBox>
+                  <VBox layoutY="226.0" prefHeight="206.0" prefWidth="290.0" />
                   </children>
               </Pane>
          </children>
       </HBox>
-      <Pane layoutX="14.0" layoutY="805.0" prefHeight="34.0" prefWidth="703.0" />
+      <Pane prefHeight="662.0" prefWidth="122.0">
+         <children>
+            <VBox layoutX="12.0" layoutY="8.0" prefHeight="651.0" prefWidth="106.0">
+               <children>
+                      <Button fx:id="addVlan" mnemonicParsing="false" onAction="#DodajVlan" prefHeight="50.0" prefWidth="120.0" text="Add Vlan" />
+                      <Button fx:id="addNas" mnemonicParsing="false" onAction="#DodajNas" prefHeight="50.0" prefWidth="120.0" text="AddNas">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="statystyka" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Statistic">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

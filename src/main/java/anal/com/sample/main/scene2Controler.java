@@ -1,17 +1,8 @@
 package anal.com.sample.main;
 
-import anal.com.sample.model.Radcheck;
-import anal.com.sample.model.Radgroupreply;
-import anal.com.sample.model.Radusergroup;
-import anal.com.sample.model.Userinfo;
-import anal.com.sample.repository.service.IRadcheckService;
-import anal.com.sample.repository.service.IRadgroupreplyService;
-import anal.com.sample.repository.service.IRadusergroupService;
-import anal.com.sample.repository.service.IUserinfoService;
-import anal.com.sample.service.service.RadcheckService;
-import anal.com.sample.service.service.RadgroupreplyService;
-import anal.com.sample.service.service.RadusergroupService;
-import anal.com.sample.service.service.UserinfoService;
+import anal.com.sample.model.*;
+import anal.com.sample.repository.service.*;
+import anal.com.sample.service.service.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -36,7 +27,10 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -69,7 +63,22 @@ public class scene2Controler {
     private TableColumn<UserTableData, String> colvlan;
     @FXML
     private TableColumn<UserTableData, String> colnotes;
+    @FXML
+    TableView<Radacct> TableRadacct;
+    @FXML
+    private TableColumn<Radacct, String> framedipaddress;
 
+    @FXML
+    private TableColumn<Radacct, String> nasip;
+
+    @FXML
+    private TableColumn<Radacct, String> nasport;
+
+    @FXML
+    private TableColumn<Radacct, String> acctstarttime;
+
+    @FXML
+    private TableColumn<Radacct, String> acctstoptime;
     @FXML
     private TextField find;
     @FXML
@@ -89,16 +98,23 @@ public class scene2Controler {
     private Label creationby;
     @FXML
     private Label username;
-
+    @FXML
+    private DatePicker startdate;
+    @FXML
+    private Button allRadacct;
+    @FXML
+    private DatePicker enddate;
 
     private static final Logger logger = Logger.getLogger(Radusergroup.class.getName());
     ObservableList<String> VlanData = FXCollections.observableArrayList();
     private ObservableList<UserTableData> personData = FXCollections.observableArrayList();
     private ObservableList<UserTableData> userData = FXCollections.observableArrayList();
+    private ObservableList<Radacct> radacctData = FXCollections.observableArrayList();
     private ObservableList<Radgroupreply> radgroupreplyData = FXCollections.observableArrayList();
     private IRadusergroupService serviceRadusergroup;
     private IRadcheckService serviceRadcheck;
     private IRadgroupreplyService serviceRadgroupreply;
+    private IRadacctService serviceRadacct;
     private IUserinfoService userinfoService;
     private Integer VlanSelected;
     private String VlanGroupName = "*";
@@ -110,14 +126,55 @@ public class scene2Controler {
         serviceRadusergroup = new RadusergroupService();
         serviceRadcheck = new RadcheckService();
         serviceRadgroupreply = new RadgroupreplyService();
+        serviceRadacct = new RadacctService();
         AddClient.setVisible(false);
         initializeColumns();
+        initializeColumnsRadacct();
         initVlanCombo();
         InitFilter();
         assert personTable != null : "fx:id=\"Table\" was not injected: check your FXML file 'scene2.fxml'.";
     }
 
     private void InitFilter() {
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = null;
+      //  String.valueOf(sdfDate.format(myObject.getAcctStartTime()).matches((newValue.toString())))) {
+
+        FilteredList<Radacct> filteredDataRadacct = new FilteredList<>(radacctData, p -> true);
+
+        enddate.valueProperty().addListener((observable ,oldValue,newValue)->{
+            filteredDataRadacct.setPredicate(myObject -> {
+                if (newValue == null) {
+                    return true;
+                }
+                if (String.valueOf(sdfDate.format(myObject.getAcctStopTime())).matches((newValue.toString()))) {
+                    return true;
+
+                } else
+                    return false;
+            });
+
+
+        });
+
+        startdate.valueProperty().addListener((observable ,oldValue,newValue)->{
+            filteredDataRadacct.setPredicate(myObject -> {
+                if (newValue == null) {
+                    return true;
+                }
+                if (String.valueOf(sdfDate.format(myObject.getAcctStartTime())).matches((newValue.toString()))) {
+                    return true;
+
+                } else
+                    return false;
+            });
+
+
+        });
+
+
         FilteredList<UserTableData> filteredData = new FilteredList<>(personData, p -> true);
         VlanGroup.valueProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(myObject -> {
@@ -162,11 +219,11 @@ public class scene2Controler {
 
                 } else if (String.valueOf(myObject.getColmacpassword()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (String.valueOf(myObject.getColnotes()).toLowerCase().contains(lowerCaseFilter)){
+                } else if (String.valueOf(myObject.getColnotes()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                } else if (String.valueOf(myObject.getColname()).toLowerCase().contains(lowerCaseFilter)){
-                return true;
-            }
+                } else if (String.valueOf(myObject.getColname()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
                 return false;
             });
         });
@@ -175,10 +232,64 @@ public class scene2Controler {
         SortedList<UserTableData> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(personTable.comparatorProperty());
         personTable.setItems(sortedData);
+
+        SortedList<Radacct> sortedDataRadacct = new SortedList<>(filteredDataRadacct);
+        sortedDataRadacct.comparatorProperty().bind(TableRadacct.comparatorProperty());
+        TableRadacct.setItems(sortedDataRadacct);
+
     }
 
     public ObservableList<UserTableData> getRadduserData() {
         return personData;
+    }
+
+    private void initializeColumnsRadacct() {
+
+
+        TableColumn<Radacct, String> framedipaddress = new TableColumn<Radacct, String>("framedipaddress");
+        TableColumn<Radacct, String> nasip = new TableColumn<Radacct, String>("nasip");
+        TableColumn<Radacct, String> nasport = new TableColumn<Radacct, String>("nasport");
+        TableColumn<Radacct, String> acctstarttime = new TableColumn<Radacct, String>("acctstarttime");
+        TableColumn<Radacct, String> acctstoptime = new TableColumn<Radacct, String>("acctstoptime");
+        TableRadacct.getColumns().setAll(framedipaddress, nasip, nasport, acctstarttime, acctstoptime);
+
+        framedipaddress.setCellValueFactory(new PropertyValueFactory<Radacct, String>("framedIPAddress"));
+        nasip.setCellValueFactory(new PropertyValueFactory<Radacct, String>("NASIPAddress"));
+        nasport.setCellValueFactory(new PropertyValueFactory<Radacct, String>("NASPortId"));
+        acctstarttime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStartTime"));
+        acctstoptime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStopTime"));
+
+
+
+
+        List<Radacct> RadacctList = serviceRadacct.getAllRadacct();
+
+        InsertDataToTableRaddacct(RadacctList);
+
+
+    }
+
+    private void InsertDataToTableRaddacct(List<Radacct> radacctList) {
+
+
+        radacctData.clear();
+        for (Radacct r : radacctList) {
+
+            Radacct radacct = new Radacct();
+            radacct.setFramedIPAddress(r.getFramedIPAddress());
+            radacct.setNASIPAddress(r.getNASIPAddress());
+            radacct.setNASPortId(r.getNASPortId());
+            radacct.setAcctStartTime(r.getAcctStartTime());
+           radacct.setAcctStopTime(r.getAcctStopTime());
+      //      System.out.println(r.getUserName());
+
+
+
+            radacctData.add(radacct);
+        }
+
+        TableRadacct.setItems(radacctData);
+        TableRadacct.setEditable(false);
     }
 
     private void initializeColumns() {
@@ -188,10 +299,18 @@ public class scene2Controler {
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
                 //Check whether item is selected and set value of selected item to Label
                 if (personTable.getSelectionModel().getSelectedItem() != null) {
-                    System.out.println(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
+                //    System.out.println(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
                     /////////Szukaj danych w Userinfo
                     userinfoService = new UserinfoService();
                     Userinfo userinfo = userinfoService.findUserInfo(personTable.getSelectionModel().getSelectedItem().getColmacaddress());
+////////szukaj logow w Radacct
+                    serviceRadacct = new RadacctService();
+                    List<Radacct> RadacctList = serviceRadacct.getRadacctToMack(personTable.getSelectionModel().getSelectedItem().getColmacaddress().toString());
+
+                    InsertDataToTableRaddacct(RadacctList);
+
+
+
 
                     if (userinfo.getFirstname() != null) {
                         firstname.setText(userinfo.getFirstname());
@@ -389,5 +508,9 @@ public class scene2Controler {
         stage.setTitle("Nas Add");
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
+    }
+
+    public void AllRadacct(ActionEvent actionEvent) {
+        initializeColumnsRadacct();
     }
 }

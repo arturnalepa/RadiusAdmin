@@ -9,7 +9,7 @@ import java.util.List;
 public interface IRadacctService {
     void saveOrUpdate(Radacct person);
 
-    List<Radacct> getAllVlan();
+    List<Radacct> getAllRadacct();
 
     Radacct getGroupByVlanId(int id);
 
@@ -20,4 +20,5 @@ public interface IRadacctService {
     Radacct testowa2();
 
 
+    List<Radacct> getRadacctToMack(String toString);
 }
