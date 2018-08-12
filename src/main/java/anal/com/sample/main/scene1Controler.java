@@ -38,6 +38,7 @@ public class scene1Controler implements Initializable {
 
     @FXML
     void Login(ActionEvent event) {
+
         Stage stage = (Stage) login.getScene().getWindow();
         // AnchorPane root = null;
         try {
