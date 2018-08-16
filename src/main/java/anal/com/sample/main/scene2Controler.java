@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,8 +22,10 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.converter.DefaultStringConverter;
 import org.springframework.stereotype.Component;
 
@@ -105,6 +109,7 @@ public class scene2Controler {
     @FXML
     private DatePicker enddate;
 
+
     private static final Logger logger = Logger.getLogger(Radusergroup.class.getName());
     ObservableList<String> VlanData = FXCollections.observableArrayList();
     private ObservableList<UserTableData> personData = FXCollections.observableArrayList();
@@ -120,18 +125,76 @@ public class scene2Controler {
     private String VlanGroupName = "*";
     ObservableList<String> masterDataa = FXCollections.observableArrayList();
     boolean copypassword;
-
+    boolean live1 = false;
+    boolean live2 = false;
 
     public void initialize() {
+
+        Stage stage2 = new Stage();
+       Progres pr =  new Progres();
+       //pr.startIndicator();
+        pr.start(stage2);
+
         serviceRadusergroup = new RadusergroupService();
         serviceRadcheck = new RadcheckService();
         serviceRadgroupreply = new RadgroupreplyService();
         serviceRadacct = new RadacctService();
         AddClient.setVisible(false);
-        initializeColumns();
-        initializeColumnsRadacct();
-        initVlanCombo();
-        InitFilter();
+
+        TableColumn<Radacct, String> framedipaddress = new TableColumn<Radacct, String>("framedipaddress");
+        TableColumn<Radacct, String> nasip = new TableColumn<Radacct, String>("nasip");
+        TableColumn<Radacct, String> nasport = new TableColumn<Radacct, String>("nasport");
+        TableColumn<Radacct, String> acctstarttime = new TableColumn<Radacct, String>("acctstarttime");
+        TableColumn<Radacct, String> acctstoptime = new TableColumn<Radacct, String>("acctstoptime");
+        TableRadacct.getColumns().setAll(framedipaddress, nasip, nasport, acctstarttime, acctstoptime);
+
+        framedipaddress.setCellValueFactory(new PropertyValueFactory<Radacct, String>("framedIPAddress"));
+        nasip.setCellValueFactory(new PropertyValueFactory<Radacct, String>("NASIPAddress"));
+        nasport.setCellValueFactory(new PropertyValueFactory<Radacct, String>("NASPortId"));
+        acctstarttime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStartTime"));
+        acctstoptime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStopTime"));
+
+
+
+        Thread thread1 =  new Thread() {
+                        public void run() {
+                            initializeColumns(); live1 = false;
+
+                    }
+
+        };
+        System.out.println("Przed startem :"+thread1.isAlive());
+       thread1.start();
+        System.out.println("Po starcie  :"+thread1.isAlive());
+
+
+
+        if(!thread1.isAlive())
+        {
+            System.out.println("w alive"+thread1.isAlive());
+            pr.Close(stage2);
+        }
+
+//        Thread thread2 =  new Thread() {
+//                        public void run() {
+//
+//                    //       initializeColumnsRadacct();
+//                           System.out.println("Skonczyłem zadanie 2 :"+live2);
+//                          }
+//                      };
+//        thread2.start();
+
+                           initVlanCombo();
+                           InitFilter();
+
+
+
+
+
+
+
+
+
         assert personTable != null : "fx:id=\"Table\" was not injected: check your FXML file 'scene2.fxml'.";
     }
 
@@ -246,18 +309,7 @@ public class scene2Controler {
     private void initializeColumnsRadacct() {
 
 
-        TableColumn<Radacct, String> framedipaddress = new TableColumn<Radacct, String>("framedipaddress");
-        TableColumn<Radacct, String> nasip = new TableColumn<Radacct, String>("nasip");
-        TableColumn<Radacct, String> nasport = new TableColumn<Radacct, String>("nasport");
-        TableColumn<Radacct, String> acctstarttime = new TableColumn<Radacct, String>("acctstarttime");
-        TableColumn<Radacct, String> acctstoptime = new TableColumn<Radacct, String>("acctstoptime");
-        TableRadacct.getColumns().setAll(framedipaddress, nasip, nasport, acctstarttime, acctstoptime);
 
-        framedipaddress.setCellValueFactory(new PropertyValueFactory<Radacct, String>("framedIPAddress"));
-        nasip.setCellValueFactory(new PropertyValueFactory<Radacct, String>("NASIPAddress"));
-        nasport.setCellValueFactory(new PropertyValueFactory<Radacct, String>("NASPortId"));
-        acctstarttime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStartTime"));
-        acctstoptime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStopTime"));
 
 
 
@@ -272,7 +324,7 @@ public class scene2Controler {
     private void InsertDataToTableRaddacct(List<Radacct> radacctList) {
 
 
-        radacctData.clear();
+      //  radacctData.clear();
         for (Radacct r : radacctList) {
 
             Radacct radacct = new Radacct();
@@ -280,16 +332,15 @@ public class scene2Controler {
             radacct.setNASIPAddress(r.getNASIPAddress());
             radacct.setNASPortId(r.getNASPortId());
             radacct.setAcctStartTime(r.getAcctStartTime());
-           radacct.setAcctStopTime(r.getAcctStopTime());
+            radacct.setAcctStopTime(r.getAcctStopTime());
       //      System.out.println(r.getUserName());
 
-
-
             radacctData.add(radacct);
-        }
 
+        }
         TableRadacct.setItems(radacctData);
-        TableRadacct.setEditable(false);
+
+     //   TableRadacct.setEditable(false);
     }
 
     private void initializeColumns() {
@@ -371,6 +422,8 @@ public class scene2Controler {
                 System.out.println(event.getNewValue());
             }
         });
+
+
         List<UserTableData> userTableDataList = new ArrayList<UserTableData>();
         List<Radcheck> userList = serviceRadcheck.getAllHost();
         userinfoService = new UserinfoService();
@@ -378,14 +431,26 @@ public class scene2Controler {
             UserTableData userTableData = new UserTableData();
             userTableData.setColmacaddress(r.getUserName());
             userTableData.setColmacpassword(r.getPassword());
+
             Radusergroup group = serviceRadusergroup.getUserNameToGroup(r.getUserName());
+
+
+
             Userinfo userinfo = userinfoService.findUserInfo(r.getMacAddress());
-            userTableData.setColname(userinfo.getFirstname());
-            userTableData.setColnotes(userinfo.getNotes());
+                            userTableData.setColname(userinfo.getFirstname());
+                            userTableData.setColnotes(userinfo.getNotes());
+
+
             Radgroupreply vlan = serviceRadgroupreply.getVlanbyGroup(group.getGroupName());
-            userTableData.setColvlan(vlan.getValue());
-            userTableDataList.add(userTableData);
+
+                                    userTableData.setColvlan(vlan.getValue());
+                                    userTableDataList.add(userTableData);
+
         }
+
+
+
+
         userData.setAll(userTableDataList);
         personData.setAll(userTableDataList);
         personTable.setItems(userData);
