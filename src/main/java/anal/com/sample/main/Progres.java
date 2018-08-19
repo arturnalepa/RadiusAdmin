@@ -19,31 +19,38 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Handler;
 
-public class Progres extends Application {
+public class Progres implements Runnable {
+    private volatile boolean execute;
 
  //private  Stage stage ;
- private Scene scene;
+    private Scene scene;
     private StackPane root;
-
+    private Thread currentThread;
     ProgressIndicator PI = new ProgressIndicator();
-    public Progres() {
+    Stage stage = new Stage();
 
-    }
-    @Override
-    public void start(Stage stage){
+    private volatile boolean shutdown;
+    public void run() {
+         currentThread = Thread.currentThread();
+        root = new StackPane();
+        scene = new Scene(root,500,750);
         startIndicator(stage);
+
+
     }
+    public void shutdown() {
+
+            currentThread.interrupt();
+
+    }
+
+
     public void startIndicator(Stage stage) {
-
-                root = new StackPane();
-                scene = new Scene(root,500,750);
-
-
-        root.getChildren().add(PI);
-
-        stage.setScene(scene);
-        root.setStyle(
+       root.getChildren().add(PI);
+       stage.setScene(scene);
+       root.setStyle(
                 "-fx-background-color: rgba(0, 0, 0, 0);" +
                         "-fx-effect: dropshadow(gaussian, red, 50, 0, 0, 0);" +
                         "-fx-background-insets: 50;"
@@ -51,26 +58,9 @@ public class Progres extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initModality(Modality.APPLICATION_MODAL);
         scene.setFill(Color.TRANSPARENT);
-     //   stage.setTitle("Progress Indicator Example");
-///stage.setFullScreen(true);
         stage.show();
         stage.toFront();
 
     }
 
-
-
-
-    public void Close(Stage stage){
-      //  System.exit(0);
-      //  root.setVisible(false);
-       // root.getScene().getWindow().hide();
-      // this.root.getScene().getWindow().clo
-stage.close();
-            //root.getChildren().clear();
-//stage.hide();
-    }
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

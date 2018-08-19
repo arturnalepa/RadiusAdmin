@@ -137,14 +137,21 @@ public class scene2Controler {
     boolean copypassword;
     boolean live1 = false;
     boolean live2 = false;
-
+    Progres pr = new Progres();
+    Stage st = new Stage();
     public void initialize() {
+
+
+        pr.run();
+
         Thread thread1 =  new Thread() {
             public void run() {
+
                 initializeColumnsRadacct();
 
                 live1=true;
-                CloseProgres(live1,live2);
+            //    CloseProgres(live1,live2);
+
             }
 
         };
@@ -154,7 +161,8 @@ public class scene2Controler {
                 initVlanCombo();
                 InitFilter();
                 live2=true;
-                CloseProgres(live1,live2);
+             //   CloseProgres(live1,live2);
+                pr.shutdown();
             }
         };
 
@@ -208,7 +216,7 @@ public class scene2Controler {
 //        }
 
 
-
+        CloseProgres(live1,live2);
 
         assert personTable != null : "fx:id=\"Table\" was not injected: check your FXML file 'scene2.fxml'.";
     }
@@ -218,10 +226,10 @@ public class scene2Controler {
         System.out.println("Przekazano stan zadania 1"+live1);
         System.out.println("Przekazano stan zadania 2"+live2);
 
-//        if (live1==true) {
-//            System.out.println("Clossses");
-//            pr.Close(stage2);
-//        }
+        if (live1==true) {
+            System.out.println("Clossses");
+
+        }
 
     }
 
