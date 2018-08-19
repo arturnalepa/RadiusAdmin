@@ -62,7 +62,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
 
     @Override
     public String getGroupbyVlan(String VlanGroupName) {
-        em.getTransaction().begin();
+    //    em.getTransaction().begin();
         Radusergroup radgroupreply = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radusergroup> cq = cb.createQuery(Radusergroup.class);
@@ -72,7 +72,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         cq.orderBy(cb.asc(root.get("groupName")));
         cq.distinct(true);
         TypedQuery<Radusergroup> query = em.createQuery(cq);
-        em.getTransaction().commit();
+     //   em.getTransaction().commit();
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radusergroup) query.getSingleResult();
@@ -90,7 +90,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
 
     @Override
     public Radusergroup getUserNameToGroup(String username) {
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
         Radusergroup radusergroup = null;
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radusergroup> cq = cb.createQuery(Radusergroup.class);
@@ -100,7 +100,7 @@ public class RadusergroupBroker implements IRadusergroupBroker {
         cq.orderBy(cb.asc(root.get("userName")));
         cq.distinct(true);
         TypedQuery<Radusergroup> query = em.createQuery(cq);
-        em.getTransaction().commit();
+
         //   System.out.println("Dla : "+username);
         //  radgroupreply = query.getSingleResult();
         try {
@@ -109,13 +109,13 @@ public class RadusergroupBroker implements IRadusergroupBroker {
             //      System.out.println("W grupie: " + radgroupreply.getGroupName());
         } catch (NoResultException nre) {
 
-            System.out.println(nre.getMessage());
+       //     System.out.println(nre.getMessage());
 
             List<Radusergroup> radlist = query.getResultList();
             for (Radusergroup rg : radlist) {
                 System.out.println("Zdublowany MACAddress: " + rg.getUserName());
             }
-
+    //       em.getTransaction().commit();
         }
         if (radusergroup == null) {
             //     System.out.println("W grupie: " + radgroupreply);

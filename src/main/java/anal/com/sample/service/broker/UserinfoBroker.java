@@ -43,7 +43,7 @@ public class UserinfoBroker implements IUserinfoBroker {
         cq.orderBy(cb.asc(root.get("username")));
         cq.distinct(true);
         TypedQuery<Userinfo> query = em.createQuery(cq);
-        em.getTransaction().commit();
+
 
         try {
             userinfo = query.getSingleResult();
@@ -51,6 +51,8 @@ public class UserinfoBroker implements IUserinfoBroker {
         } catch (NoResultException nre) {
             userinfo.setFirstname("");
         }
+
+        em.getTransaction().commit();
         if (userinfo == null) {
             //     System.out.println("W grupie: " + radgroupreply);
             userinfo.setFirstname("a");

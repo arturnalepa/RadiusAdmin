@@ -5,6 +5,7 @@ import anal.com.sample.repository.broker.IRadacctBroker;
 import anal.com.sample.repository.service.IRadacctService;
 import anal.com.sample.service.broker.RadacctBroker;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class RadacctService implements IRadacctService {
@@ -20,8 +21,10 @@ public class RadacctService implements IRadacctService {
     }
 
     @Override
-    public List<Radacct> getAllRadacct() {
-        return broker.getAllRadacct();
+    public List<Radacct> getAllRadacct() throws ParseException {
+
+            return broker.getAllRadacct();
+
     }
 
 //    @Override

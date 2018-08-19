@@ -106,7 +106,7 @@ public class RadgroupreplyBroker implements IRadgroupreplyBroker {
         cq.orderBy(cb.asc(root.get("value")));
         cq.distinct(true);
         TypedQuery<Radgroupreply> query = em.createQuery(cq);
-        em.getTransaction().commit();
+
         //  radgroupreply = query.getSingleResult();
         try {
             radgroupreply = (Radgroupreply) query.getSingleResult();
@@ -114,6 +114,7 @@ public class RadgroupreplyBroker implements IRadgroupreplyBroker {
         } catch (NoResultException nre) {
 
         }
+        em.getTransaction().commit();
         if (radgroupreply == null) {
             //   System.out.println("W grupie: " + radgroupreply);
             Radgroupreply rep = new Radgroupreply();

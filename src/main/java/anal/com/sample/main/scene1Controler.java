@@ -39,13 +39,19 @@ public class scene1Controler implements Initializable {
     @FXML
     void Login(ActionEvent event) {
 
+
+
+
         Stage stage = (Stage) login.getScene().getWindow();
+
+
         // AnchorPane root = null;
         try {
             AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("scene2.fxml"));
             Scene scene = new Scene(root);
             //  scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             stage.setScene(scene);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,6 +13,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -33,13 +39,34 @@ public class RadacctBroker implements IRadacctBroker {
     }
 
     @Override
-    public List<Radacct> getAllRadacct() {
+    public List<Radacct> getAllRadacct() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+
+        Date now = cal.getTime();
+        cal.add(Calendar.MONTH, -1);
+
+
+        System.out.println(format.format(cal.getTime()));
+
+
+
+
+      //  java.util.Date startDate = dateFormat.parse("yyyy-MM-dd HH:mm:ss");
+
+
+
+
         em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radacct> cq = cb.createQuery(Radacct.class);
         Root<Radacct> root = cq.from(Radacct.class);
-      //  Predicate condition = cb.equal(root.get("Attribute"), "Tunnel-Private-Group-ID");
-     //   cq.where(condition);
+          Predicate startDatePredicate  = cb.greaterThanOrEqualTo(root.get("acctStartTime").as(java.sql.Timestamp.class), cal.getTime());
+          Predicate endDatePredicate  = cb.lessThanOrEqualTo(root.get("acctStartTime").as(java.sql.Timestamp.class), now);
+
+
+        Predicate and = cb.and(startDatePredicate, endDatePredicate);
+        cq.where(and);
      //   cq.orderBy(cb.asc(root.get("radAcctId")));
      //   cq.distinct(true);
         TypedQuery<Radacct> query = em.createQuery(cq);

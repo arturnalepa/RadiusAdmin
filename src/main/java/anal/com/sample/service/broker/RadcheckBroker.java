@@ -33,7 +33,7 @@ public class RadcheckBroker implements IRadcheckBroker {
 
     @Override
     public List<Radcheck> getAllHost() {
-
+        em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
         Root<Radcheck> root = cq.from(Radcheck.class);
@@ -43,7 +43,7 @@ public class RadcheckBroker implements IRadcheckBroker {
         cq.distinct(true);
         TypedQuery<Radcheck> query = em.createQuery(cq);
         List<Radcheck> radcheck = query.getResultList();
-
+        em.getTransaction().commit();
 
 //        CriteriaBuilder cb = em.getCriteriaBuilder();
 //        CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
@@ -59,7 +59,7 @@ public class RadcheckBroker implements IRadcheckBroker {
 
     @Override
     public Radcheck getGroupByVlanId(int id) {
-
+        em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radcheck> cq = cb.createQuery(Radcheck.class);
         Root<Radcheck> root = cq.from(Radcheck.class);
@@ -70,6 +70,7 @@ public class RadcheckBroker implements IRadcheckBroker {
         TypedQuery<Radcheck> query = em.createQuery(cq);
         Radcheck radcheck = query.getSingleResult();
         System.out.println("Wyszukany MAc address: " + radcheck.getMacAddress());
+        em.getTransaction().commit();
         return radcheck;
         //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -108,7 +108,17 @@ public class scene2Controler {
     private Button allRadacct;
     @FXML
     private DatePicker enddate;
+    @FXML
+    private Button clear1;
 
+    @FXML
+    private Button clear2;
+
+    @FXML
+    private Button clear3;
+
+    @FXML
+    private Button clear4;
 
     private static final Logger logger = Logger.getLogger(Radusergroup.class.getName());
     ObservableList<String> VlanData = FXCollections.observableArrayList();
@@ -129,17 +139,35 @@ public class scene2Controler {
     boolean live2 = false;
 
     public void initialize() {
+        Thread thread1 =  new Thread() {
+            public void run() {
+                initializeColumnsRadacct();
 
-        Stage stage2 = new Stage();
-       Progres pr =  new Progres();
-       //pr.startIndicator();
-        pr.start(stage2);
+                live1=true;
+                CloseProgres(live1,live2);
+            }
+
+        };
+        Thread thread2 =  new Thread() {
+            public void run() {
+                initializeColumns();
+                initVlanCombo();
+                InitFilter();
+                live2=true;
+                CloseProgres(live1,live2);
+            }
+        };
+
+
+
 
         serviceRadusergroup = new RadusergroupService();
         serviceRadcheck = new RadcheckService();
         serviceRadgroupreply = new RadgroupreplyService();
         serviceRadacct = new RadacctService();
         AddClient.setVisible(false);
+        thread1.start();
+        thread2.start();
 
         TableColumn<Radacct, String> framedipaddress = new TableColumn<Radacct, String>("framedipaddress");
         TableColumn<Radacct, String> nasip = new TableColumn<Radacct, String>("nasip");
@@ -155,42 +183,29 @@ public class scene2Controler {
         acctstoptime.setCellValueFactory(new PropertyValueFactory<Radacct, String>("acctStopTime"));
 
 
+     //   initializeColumns();
+      //  initializeColumnsRadacct();
 
-        Thread thread1 =  new Thread() {
-                        public void run() {
-                            initializeColumns(); live1 = false;
-
-                    }
-
-        };
-        System.out.println("Przed startem :"+thread1.isAlive());
-       thread1.start();
-        System.out.println("Po starcie  :"+thread1.isAlive());
-
-
-
-        if(!thread1.isAlive())
-        {
-            System.out.println("w alive"+thread1.isAlive());
-            pr.Close(stage2);
-        }
-
-//        Thread thread2 =  new Thread() {
-//                        public void run() {
+//        System.out.println("Przed startem :"+thread1.isAlive());
+//       thread1.start();
+//        System.out.println("Po starcie  :"+thread1.isAlive());
 //
-//                    //       initializeColumnsRadacct();
-//                           System.out.println("Skonczyłem zadanie 2 :"+live2);
-//                          }
-//                      };
-//        thread2.start();
-
-                           initVlanCombo();
-                           InitFilter();
-
-
+//
+//
+        //  MacAddress.textProperty().bind(find.textProperty());
+        //     Stage stage2 = new Stage();
+//        Progres pr =  new Progres();
+//
+//       //pr.startIndicator();
+//        pr.start(stage2);
 
 
 
+
+//        if (!live1==false) {
+//            System.out.println("Clossses");
+//            pr.Close(stage2);
+//        }
 
 
 
@@ -198,44 +213,56 @@ public class scene2Controler {
         assert personTable != null : "fx:id=\"Table\" was not injected: check your FXML file 'scene2.fxml'.";
     }
 
-    private void InitFilter() {
+    private void CloseProgres(boolean live1, boolean live2) {
 
+        System.out.println("Przekazano stan zadania 1"+live1);
+        System.out.println("Przekazano stan zadania 2"+live2);
+
+//        if (live1==true) {
+//            System.out.println("Clossses");
+//            pr.Close(stage2);
+//        }
+
+    }
+
+    private void InitFilter() {
+System.out.println("inicjalizacja sortowania");
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");//dd/MM/yyyy
         Date now = new Date();
         String strDate = null;
       //  String.valueOf(sdfDate.format(myObject.getAcctStartTime()).matches((newValue.toString())))) {
 
-        FilteredList<Radacct> filteredDataRadacct = new FilteredList<>(radacctData, p -> true);
+   //     FilteredList<Radacct> filteredDataRadacct = new FilteredList<>(radacctData, p -> true);
 
-        enddate.valueProperty().addListener((observable ,oldValue,newValue)->{
-            filteredDataRadacct.setPredicate(myObject -> {
-                if (newValue == null) {
-                    return true;
-                }
-                if (String.valueOf(sdfDate.format(myObject.getAcctStopTime())).matches((newValue.toString()))) {
-                    return true;
-
-                } else
-                    return false;
-            });
-
-
-        });
-
-        startdate.valueProperty().addListener((observable ,oldValue,newValue)->{
-            filteredDataRadacct.setPredicate(myObject -> {
-                if (newValue == null) {
-                    return true;
-                }
-                if (String.valueOf(sdfDate.format(myObject.getAcctStartTime())).matches((newValue.toString()))) {
-                    return true;
-
-                } else
-                    return false;
-            });
-
-
-        });
+//        enddate.valueProperty().addListener((observable ,oldValue,newValue)->{
+//            filteredDataRadacct.setPredicate(myObject -> {
+//                if (newValue == null) {
+//                    return true;
+//                }
+//                if (String.valueOf(sdfDate.format(myObject.getAcctStopTime())).matches((newValue.toString()))) {
+//                    return true;
+//
+//                } else
+//                    return false;
+//            });
+//
+//
+//        });
+//
+//        startdate.valueProperty().addListener((observable ,oldValue,newValue)->{
+//            filteredDataRadacct.setPredicate(myObject -> {
+//                if (newValue == null) {
+//                    return true;
+//                }
+//                if (String.valueOf(sdfDate.format(myObject.getAcctStartTime())).matches((newValue.toString()))) {
+//                    return true;
+//
+//                } else
+//                    return false;
+//            });
+//
+//
+//        });
 
 
         FilteredList<UserTableData> filteredData = new FilteredList<>(personData, p -> true);
@@ -245,6 +272,8 @@ public class scene2Controler {
                     return true;
                 }
                 if (String.valueOf(myObject.getColvlan()).matches((newValue.toString()))) {
+
+                    System.out.println(String.valueOf(myObject.getColvlan()).matches((newValue.toString())));
                     return true;
 
                 } else
@@ -295,10 +324,10 @@ public class scene2Controler {
         SortedList<UserTableData> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(personTable.comparatorProperty());
         personTable.setItems(sortedData);
-
-        SortedList<Radacct> sortedDataRadacct = new SortedList<>(filteredDataRadacct);
-        sortedDataRadacct.comparatorProperty().bind(TableRadacct.comparatorProperty());
-        TableRadacct.setItems(sortedDataRadacct);
+System.out.println("sortowanie");
+//        SortedList<Radacct> sortedDataRadacct = new SortedList<>(filteredDataRadacct);
+//        sortedDataRadacct.comparatorProperty().bind(TableRadacct.comparatorProperty());
+//        TableRadacct.setItems(sortedDataRadacct);
 
     }
 
@@ -308,13 +337,12 @@ public class scene2Controler {
 
     private void initializeColumnsRadacct() {
 
-
-
-
-
-
-
-        List<Radacct> RadacctList = serviceRadacct.getAllRadacct();
+        List<Radacct> RadacctList = null;
+        try {
+            RadacctList = serviceRadacct.getAllRadacct();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         InsertDataToTableRaddacct(RadacctList);
 
@@ -323,11 +351,10 @@ public class scene2Controler {
 
     private void InsertDataToTableRaddacct(List<Radacct> radacctList) {
 
-
-      //  radacctData.clear();
+        Radacct radacct = new Radacct();
+        radacctData.clear();
         for (Radacct r : radacctList) {
 
-            Radacct radacct = new Radacct();
             radacct.setFramedIPAddress(r.getFramedIPAddress());
             radacct.setNASIPAddress(r.getNASIPAddress());
             radacct.setNASPortId(r.getNASPortId());
@@ -340,7 +367,7 @@ public class scene2Controler {
         }
         TableRadacct.setItems(radacctData);
 
-     //   TableRadacct.setEditable(false);
+        TableRadacct.setEditable(false);
     }
 
     private void initializeColumns() {
@@ -431,19 +458,12 @@ public class scene2Controler {
             UserTableData userTableData = new UserTableData();
             userTableData.setColmacaddress(r.getUserName());
             userTableData.setColmacpassword(r.getPassword());
-
             Radusergroup group = serviceRadusergroup.getUserNameToGroup(r.getUserName());
-
-
-
-            Userinfo userinfo = userinfoService.findUserInfo(r.getMacAddress());
+           Userinfo userinfo = userinfoService.findUserInfo(r.getMacAddress());
                             userTableData.setColname(userinfo.getFirstname());
                             userTableData.setColnotes(userinfo.getNotes());
-
-
-            Radgroupreply vlan = serviceRadgroupreply.getVlanbyGroup(group.getGroupName());
-
-                                    userTableData.setColvlan(vlan.getValue());
+           Radgroupreply vlan = serviceRadgroupreply.getVlanbyGroup(group.getGroupName());
+                               userTableData.setColvlan(vlan.getValue());
                                     userTableDataList.add(userTableData);
 
         }
@@ -577,5 +597,35 @@ public class scene2Controler {
 
     public void AllRadacct(ActionEvent actionEvent) {
         initializeColumnsRadacct();
+    }
+
+    public void ClearData(ActionEvent actionEvent) {
+        String idbutton = ((Button)actionEvent.getSource()).getId();
+
+        switch (idbutton){
+            case "clear1":
+           //   VlanGroup.setItems("");
+            //    VlanGroup.getSelectionModel().getSelectedItem().toString();
+         //       VlanGroup.getItems().size();
+
+              VlanGroup.getSelectionModel().selectLast();
+                break;
+            case "clear2":
+              find.clear();
+                break;
+            case "clear3":
+              MacAddress.clear();
+                break;
+            case "clear4":
+             MacPassword.clear();
+                break;
+
+            default:
+
+        }
+
+
+
+
     }
 }
