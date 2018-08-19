@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.DefaultStringConverter;
 import org.springframework.stereotype.Component;
-
+import javafx.util.Callback;
 import javax.swing.*;
 import java.io.IOException;
 import java.text.ParseException;
@@ -435,6 +435,7 @@ System.out.println("sortowanie");
         TableColumn<UserTableData, String> colmacpassword = new TableColumn<UserTableData, String>("MacPassword");
         TableColumn<UserTableData, String> colvlan = new TableColumn<UserTableData, String>("Vlan");
         TableColumn<UserTableData, String> colnotes = new TableColumn<UserTableData, String>("Opis");
+
         personTable.getColumns().setAll(colname, colmacaddress, colmacpassword, colvlan, colnotes);
         colname.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colname"));
         colmacaddress.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacaddress"));
@@ -604,11 +605,7 @@ System.out.println("sortowanie");
 
         switch (idbutton){
             case "clear1":
-           //   VlanGroup.setItems("");
-            //    VlanGroup.getSelectionModel().getSelectedItem().toString();
-         //       VlanGroup.getItems().size();
-
-              VlanGroup.getSelectionModel().selectLast();
+                        VlanGroup.getSelectionModel().selectLast();
                 break;
             case "clear2":
               find.clear();
