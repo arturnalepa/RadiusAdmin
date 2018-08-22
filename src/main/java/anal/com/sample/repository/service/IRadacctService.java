@@ -22,4 +22,6 @@ public interface IRadacctService {
 
 
     List<Radacct> getRadacctToMack(String toString);
+
+    List<Radacct> getIPRadacctToMack(String toString);
 }

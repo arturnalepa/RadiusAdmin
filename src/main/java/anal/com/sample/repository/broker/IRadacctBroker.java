@@ -15,4 +15,6 @@ public interface IRadacctBroker {
     public abstract Radacct getPersonByEmail(String email);
 
    public abstract List<Radacct> getRadacctToMack(String macAddress);
+
+    public abstract  List<Radacct> getIPRadacctToMack(String macAddress);
 }

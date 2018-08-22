@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -91,7 +91,24 @@ public class RadacctBroker implements IRadacctBroker {
 
         return radacct;
     }
+    @Override
+    public  List<Radacct> getIPRadacctToMack(String MacAddress){
 
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Radacct> cq = cb.createQuery(Radacct.class);
+        Root<Radacct> root = cq.from(Radacct.class);
+        Predicate condition = cb.equal(root.get("userName"), MacAddress);
+       cb.max(root.get("acctStartTime"));
+     //   Expression maxDate = cb.max(root.get("acctStartTime"));
+   // cq.select(maxDate);
+        cq.where(condition);
+        //   cq.orderBy(cb.asc(root.get("radAcctId")));
+        //   cq.distinct(true);
+        TypedQuery<Radacct> query = em.createQuery(cq);
+        List<Radacct> radacct = query.getResultList();
+
+       return radacct;
+    }
     @Override
     public Radacct getGroupByVlanId(int id) {
 

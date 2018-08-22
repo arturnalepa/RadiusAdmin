@@ -46,12 +46,17 @@ public class RadacctService implements IRadacctService {
     public Radacct testowa2() {
         return null;
     }
-
+    @Override
     public Radacct getGroupByVlanId(int id) {
         return broker.getGroupByVlanId(id);
     }
     @Override
     public  List<Radacct> getRadacctToMack(String MacAddress){
         return broker.getRadacctToMack(MacAddress);
+    }
+
+    @Override
+    public  List<Radacct> getIPRadacctToMack(String MacAddress){
+        return broker.getIPRadacctToMack(MacAddress);
     }
 }

@@ -27,6 +27,7 @@
                             <TableView fx:id="personTable" editable="true" onMouseClicked="#RightContextMenu" prefHeight="242.0" prefWidth="846.0" tableMenuButtonVisible="true">
                                 <columns>
                                     <TableColumn fx:id="colname" prefWidth="75.0" text="cname" />
+                              <TableColumn fx:id="colipaddress" prefWidth="75.0" text="ip address" />
                                     <TableColumn fx:id="colmacaddress" prefWidth="75.0" text="C1" />
                                     <TableColumn fx:id="colmacpassword" prefWidth="75.0" text="C2" />
                                     <TableColumn fx:id="colvlan" prefWidth="75.0" text="C2" />

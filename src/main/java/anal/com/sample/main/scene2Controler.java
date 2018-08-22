@@ -67,6 +67,9 @@ public class scene2Controler {
     private TableColumn<UserTableData, String> colvlan;
     @FXML
     private TableColumn<UserTableData, String> colnotes;
+
+    @FXML
+    private TableColumn<UserTableData, String> colipaddress;
     @FXML
     TableView<Radacct> TableRadacct;
     @FXML
@@ -142,7 +145,7 @@ public class scene2Controler {
     public void initialize() {
 
 
-        pr.run();
+    //    pr.run();
 
         Thread thread1 =  new Thread() {
             public void run() {
@@ -162,7 +165,7 @@ public class scene2Controler {
                 InitFilter();
                 live2=true;
              //   CloseProgres(live1,live2);
-                pr.shutdown();
+        //        pr.shutdown();
             }
         };
 
@@ -323,16 +326,21 @@ System.out.println("inicjalizacja sortowania");
                     return true;
                 } else if (String.valueOf(myObject.getColname()).toLowerCase().contains(lowerCaseFilter)) {
                     return true;
-                }
+                } else if (String.valueOf(myObject.getColipaddress()).toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
                 return false;
             });
         });
 
 
+
+
+
         SortedList<UserTableData> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(personTable.comparatorProperty());
         personTable.setItems(sortedData);
-System.out.println("sortowanie");
+
 //        SortedList<Radacct> sortedDataRadacct = new SortedList<>(filteredDataRadacct);
 //        sortedDataRadacct.comparatorProperty().bind(TableRadacct.comparatorProperty());
 //        TableRadacct.setItems(sortedDataRadacct);
@@ -439,14 +447,16 @@ System.out.println("sortowanie");
             }
         });
         TableColumn<UserTableData, String> colname = new TableColumn<UserTableData, String>("Name");
+        TableColumn<UserTableData, String> colipaddress = new TableColumn<UserTableData, String>("IPAddress");
         TableColumn<UserTableData, String> colmacaddress = new TableColumn<UserTableData, String>("MacAddress");
         TableColumn<UserTableData, String> colmacpassword = new TableColumn<UserTableData, String>("MacPassword");
         TableColumn<UserTableData, String> colvlan = new TableColumn<UserTableData, String>("Vlan");
         TableColumn<UserTableData, String> colnotes = new TableColumn<UserTableData, String>("Opis");
 
-        personTable.getColumns().setAll(colname, colmacaddress, colmacpassword, colvlan, colnotes);
+        personTable.getColumns().setAll(colname,colipaddress, colmacaddress, colmacpassword, colvlan, colnotes);
         colname.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colname"));
         colmacaddress.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacaddress"));
+        colipaddress.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colipaddress"));
         colmacpassword.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colmacpassword"));
         colvlan.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colvlan"));
         colnotes.setCellValueFactory(new PropertyValueFactory<UserTableData, String>("colnotes"));
@@ -464,8 +474,22 @@ System.out.println("sortowanie");
         List<Radcheck> userList = serviceRadcheck.getAllHost();
         userinfoService = new UserinfoService();
         for (Radcheck r : userList) {
+
+
+
+
+
+
             UserTableData userTableData = new UserTableData();
+            List<Radacct> radacct =serviceRadacct.getIPRadacctToMack(r.getMacAddress());
+            for(Radacct rr:radacct){
+               userTableData.setColipaddress(rr.getFramedIPAddress());
+
+            }
+
+
             userTableData.setColmacaddress(r.getUserName());
+
             userTableData.setColmacpassword(r.getPassword());
             Radusergroup group = serviceRadusergroup.getUserNameToGroup(r.getUserName());
            Userinfo userinfo = userinfoService.findUserInfo(r.getMacAddress());
