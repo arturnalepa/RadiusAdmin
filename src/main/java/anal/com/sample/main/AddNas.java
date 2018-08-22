@@ -77,6 +77,11 @@ public class AddNas implements Initializable {
 
     @FXML
     private TableColumn<Nas, String> tabnas_c7;
+
+    @FXML
+    private Label lblilosc;
+
+
     private ObservableList<Nas> nasTableData = FXCollections.observableArrayList();
     private INasService serviceNas;
     Nas nas = new Nas();
@@ -301,6 +306,7 @@ public class AddNas implements Initializable {
 
 
         List<Nas> nasList = serviceNas.getAllNas();
+        lblilosc.setText(String.valueOf(nasList.size()));
         nasTableData.setAll(nasList);
         nastable.setItems(getNasData());
         nastable.setEditable(true);

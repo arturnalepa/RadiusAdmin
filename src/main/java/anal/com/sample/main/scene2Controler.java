@@ -3,6 +3,7 @@ package anal.com.sample.main;
 import anal.com.sample.model.*;
 import anal.com.sample.repository.service.*;
 import anal.com.sample.service.service.*;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -123,6 +124,11 @@ public class scene2Controler {
     @FXML
     private Button clear4;
 
+
+
+    @FXML
+    private Label lblilosc;
+
     private static final Logger logger = Logger.getLogger(Radusergroup.class.getName());
     ObservableList<String> VlanData = FXCollections.observableArrayList();
     private ObservableList<UserTableData> personData = FXCollections.observableArrayList();
@@ -143,6 +149,7 @@ public class scene2Controler {
     Progres pr = new Progres();
     Stage st = new Stage();
     public void initialize() {
+
 
 
     //    pr.run();
@@ -280,14 +287,17 @@ System.out.println("inicjalizacja sortowania");
         VlanGroup.valueProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(myObject -> {
                 if (newValue == "all") {
+
                     return true;
                 }
                 if (String.valueOf(myObject.getColvlan()).matches((newValue.toString()))) {
 
-                    System.out.println(String.valueOf(myObject.getColvlan()).matches((newValue.toString())));
+                    String.valueOf(myObject.getColvlan()).matches((newValue.toString()));
+                    setLblilosc(Integer.toString(filteredData.size())+1);
                     return true;
 
                 } else
+
                     return false;
             });
         });
@@ -341,6 +351,9 @@ System.out.println("inicjalizacja sortowania");
         sortedData.comparatorProperty().bind(personTable.comparatorProperty());
         personTable.setItems(sortedData);
 
+
+//        String ilosc = Integer.toString(personTable.getItems().size());
+//        lblilosc.setText(ilosc);
 //        SortedList<Radacct> sortedDataRadacct = new SortedList<>(filteredDataRadacct);
 //        sortedDataRadacct.comparatorProperty().bind(TableRadacct.comparatorProperty());
 //        TableRadacct.setItems(sortedDataRadacct);
@@ -387,7 +400,8 @@ System.out.println("inicjalizacja sortowania");
     }
 
     private void initializeColumns() {
-
+       // lblilosc= new Label();;
+        lblilosc.setText("0");
         personTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
@@ -469,9 +483,11 @@ System.out.println("inicjalizacja sortowania");
             }
         });
 
-
         List<UserTableData> userTableDataList = new ArrayList<UserTableData>();
         List<Radcheck> userList = serviceRadcheck.getAllHost();
+        int allUsersSize = userList.size();
+
+
         userinfoService = new UserinfoService();
         for (Radcheck r : userList) {
 
@@ -499,8 +515,18 @@ System.out.println("inicjalizacja sortowania");
                                userTableData.setColvlan(vlan.getValue());
                                     userTableDataList.add(userTableData);
 
+            Platform.runLater( () -> {
+                setLblilosc(Integer.toString(userTableDataList.size()));
+
+
+
+            });
+
+
         }
 
+
+        //    pr.shutdown();
 
 
 
@@ -509,6 +535,17 @@ System.out.println("inicjalizacja sortowania");
         personTable.setItems(userData);
         personTable.setEditable(true);
         checkMacPass.setSelected(true);
+
+//        Platform.runLater(new Runnable() {
+//            @Override public void run() {
+//                setLblilosc(Integer.toString(userTableDataList.size()));
+//            }
+//        });
+
+
+
+
+
     }
 
     public void insertValue(KeyEvent keyEvent) {
@@ -656,5 +693,12 @@ System.out.println("inicjalizacja sortowania");
 
 
 
+    }
+    public Label getLblilosc() {
+        return lblilosc;
+    }
+
+    public void setLblilosc(String lblilosc) {
+        this.lblilosc.setText(lblilosc);
     }
 }

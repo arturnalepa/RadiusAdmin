@@ -42,7 +42,7 @@ public class Progres implements Runnable {
     }
     public void shutdown() {
 
-            currentThread.interrupt();
+         stage.close();
 
     }
 
