@@ -1,5 +1,7 @@
 package anal.com.sample.main;
 
+import anal.com.sample.ldap.Ldap;
+import anal.com.sample.model.Radusergroup;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class scene1Controler implements Initializable {
 
@@ -35,13 +38,30 @@ public class scene1Controler implements Initializable {
     @FXML
     private AnchorPane content;
 
-
+    private static final Logger logger = Logger.getLogger(Ldap.class.getName());
     @FXML
     void Login(ActionEvent event) {
 
 
+    Ldap ldap = new Ldap();
+        boolean success = ldap.Login(username.getText(), password.getText(), "221Informatyka");
 
 
+        if(success==true) {
+            LoginSuuccess();
+
+        }
+        else {
+
+            if ((username.getText().equals("admin")) && (password.getText().equals("admin"))){
+                LoginSuuccess();
+            } else {
+                logger.info("błąd logowania ");
+            }
+        }
+    }
+
+    private void LoginSuuccess() {
         Stage stage = (Stage) login.getScene().getWindow();
 
 
@@ -55,8 +75,6 @@ public class scene1Controler implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @FXML

@@ -2,21 +2,14 @@ package anal.com.sample.main;
 
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -44,39 +37,29 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-
-   //   new Progres().startIndicator();
-            Wczytaj(stage);
-
-                 }
-
-    private void Wczytaj(Stage stage) {
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                //   label.setText("aaa");
+//        try {
+//            czytaj();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
+
             root = FXMLLoader.load(getClass().getResource("scene1.fxml"));
-        } catch (IOException e) {
+
+         //   Scene scene = new Scene(root, 300, 275);
+            Scene scene = new Scene(root);
+             stage.setTitle("FXML Welcome");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
-        //   Scene scene = new Scene(root, 300, 275);
-
-        Scene scene = new Scene(root);
-        stage.setTitle("Radmin");
-    //   stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-        stage.toBack();
-            }
-        });
-
-
     }
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
+
 
         launch(args);
         SpringApplication.run(Main.class, args);

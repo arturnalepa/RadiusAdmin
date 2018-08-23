@@ -57,7 +57,7 @@ public class RadacctBroker implements IRadacctBroker {
 
 
 
-        em.getTransaction().begin();
+       em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radacct> cq = cb.createQuery(Radacct.class);
         Root<Radacct> root = cq.from(Radacct.class);
@@ -71,12 +71,13 @@ public class RadacctBroker implements IRadacctBroker {
      //   cq.distinct(true);
         TypedQuery<Radacct> query = em.createQuery(cq);
         List<Radacct> radacct = query.getResultList();
-        em.getTransaction().commit();
+  //     em.getTransaction().commit();
          return radacct;
     }
 
     @Override
     public  List<Radacct> getRadacctToMack(String MacAddress){
+  //      em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Radacct> cq = cb.createQuery(Radacct.class);
         Root<Radacct> root = cq.from(Radacct.class);
@@ -86,14 +87,14 @@ public class RadacctBroker implements IRadacctBroker {
         //   cq.distinct(true);
         TypedQuery<Radacct> query = em.createQuery(cq);
         List<Radacct> radacct = query.getResultList();
-
+   //     em.getTransaction().commit();
 
 
         return radacct;
     }
     @Override
     public  List<Radacct> getIPRadacctToMack(String MacAddress){
-
+    //    em.getTransaction().begin();
         CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Radacct> cq = cb.createQuery(Radacct.class);
         Root<Radacct> root = cq.from(Radacct.class);
@@ -106,7 +107,7 @@ public class RadacctBroker implements IRadacctBroker {
         //   cq.distinct(true);
         TypedQuery<Radacct> query = em.createQuery(cq);
         List<Radacct> radacct = query.getResultList();
-
+   //     em.getTransaction().commit();
        return radacct;
     }
     @Override
